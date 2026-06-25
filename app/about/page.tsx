@@ -127,12 +127,6 @@ export default function About() {
             </li>
           ))}
         </ul>
-        <a
-          href="/contact.vcf"
-          className="mt-6 inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm text-muted transition-colors hover:text-foreground hover:bg-card"
-        >
-          Download vCard
-        </a>
       </section>
     </div>
   );
