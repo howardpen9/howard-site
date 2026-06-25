@@ -60,6 +60,11 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       <header className="mt-6">
         <h1 className="text-2xl font-semibold tracking-tight">{post.title}</h1>
         <div className="mt-2 flex items-center gap-3 text-sm text-faint">
+          {post.draft && (
+            <span className="rounded border border-accent/40 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent">
+              draft · local only
+            </span>
+          )}
           <time dateTime={post.date} className="font-mono">{formatDate(post.date)}</time>
           <a href={`/${year}/${slug}.md`} className="font-mono transition-colors hover:text-foreground">
             view as .md

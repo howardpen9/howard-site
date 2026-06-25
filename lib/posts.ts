@@ -4,6 +4,11 @@ import matter from "gray-matter";
 
 const POSTS_DIR = path.join(process.cwd(), "posts");
 
+// Drafts (frontmatter `draft: true`) are visible locally but hidden on Vercel,
+// so they never reach production (or any deployed URL). `VERCEL` is set in
+// every Vercel build/runtime and unset on localhost (dev or `pnpm build`).
+const SHOW_DRAFTS = !process.env.VERCEL;
+
 export type PostMeta = {
   title: string;
   description: string;
@@ -11,6 +16,8 @@ export type PostMeta = {
   year: string;
   slug: string;
   tags?: string[];
+  draft?: boolean;
+  lang?: string;
   // Agent/GEO-friendly provenance fields.
   source_url?: string;
   captured_at?: string;
@@ -41,11 +48,14 @@ export function getAllPosts(): Post[] {
         year,
         slug,
         tags: data.tags as string[] | undefined,
+        draft: data.draft === true,
+        lang: data.lang as string | undefined,
         source_url: data.source_url as string | undefined,
         captured_at: data.captured_at as string | undefined,
         content,
       };
     })
+    .filter((p) => SHOW_DRAFTS || !p.draft)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 

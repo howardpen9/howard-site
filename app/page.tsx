@@ -22,7 +22,14 @@ export default function Home() {
                   <span className="w-12 shrink-0 font-mono text-sm text-faint">
                     {showYear ? post.year : ""}
                   </span>
-                  <span className="flex-1 transition-colors group-hover:text-accent">{post.title}</span>
+                  <span className="flex-1 transition-colors group-hover:text-accent">
+                    {post.title}
+                    {post.draft && (
+                      <span className="ml-2 rounded border border-accent/40 px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wider text-accent">
+                        draft
+                      </span>
+                    )}
+                  </span>
                   <time dateTime={post.date} className="shrink-0 font-mono text-sm text-faint">
                     {formatMonthDay(post.date)}
                   </time>

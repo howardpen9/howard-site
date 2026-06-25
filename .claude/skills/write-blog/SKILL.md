@@ -49,9 +49,9 @@ Write in Howard's voice (see below). Open with the thesis as a perspective shift
 - Collect every source/link into a `## References` section at the end: `- [title](url)`. Put the trigger source first.
 
 ### 5. Wrap up
-Print the new file path. Offer next steps — don't do them unless asked:
-- 預覽:`pnpm dev` then open `/<year>/<slug>`
-- 上線:`git add` the post + images, commit, push (auto-deploys on Vercel)
+Print the new file path and remind Howard it's a **draft (local only)**. Offer next steps — don't do them unless asked:
+- 預覽:`pnpm dev` then open `/<year>/<slug>` (draft shows locally, marked "draft")
+- 發布:set `draft: false` in the frontmatter, then `git add` the post + images, commit, push (auto-deploys on Vercel; only then does it go live)
 
 ## Output file convention (howard-site)
 
@@ -65,12 +65,14 @@ title: "…"
 description: "一句話摘要,RSS 與 llms.txt 會用到"
 date: "<today YYYY-MM-DD>"
 tags: ["…", "…"]
+draft: true
 source_url: "https://howardpeng.com/<year>/<slug>"
 captured_at: "<today YYYY-MM-DD>"
 lang: "zh"
 ---
 ```
 
+- `draft: true` by default. **Drafts show only on localhost** (`pnpm dev`) — `lib/posts.ts` hides any `draft: true` post on Vercel, so it never reaches production, RSS, sitemap, or llms.txt. **Publishing = set `draft: false` (or remove the line), commit, push.** Always start a new post as a draft.
 - `date` and `captured_at` = today's date (from the environment's current date).
 - `source_url` = `https://howardpeng.com/<year>/<slug>` (the post's own canonical URL).
 - `lang` = `"zh"` for now. The site currently ignores this field; it's a seed for the future bilingual layer. Leave it.
