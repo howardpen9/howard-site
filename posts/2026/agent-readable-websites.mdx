@@ -1,0 +1,44 @@
+---
+title: "Build websites that agents can read"
+description: "Why I publish llms.txt, raw Markdown, and JSON-LD alongside every page — and how it changes who your site is for."
+date: "2026-06-25"
+tags: ["web", "agents", "geo"]
+source_url: "https://howardpeng.com/2026/agent-readable-websites"
+captured_at: "2026-06-25"
+---
+
+For fifteen years we optimized websites for two readers: humans, and the search
+crawler that decided which humans would find us. A third reader has arrived, and
+it doesn't render your CSS, doesn't run your JavaScript, and doesn't care about
+your hero animation. It wants the text, the structure, and the provenance — and
+it increasingly decides what gets cited.
+
+So this site ships an agent-readable layer next to the human one.
+
+## What that means in practice
+
+Every page has a plain-Markdown twin. Append `.md` to any post URL and you get
+the raw source with a small provenance header — title, author, canonical URL,
+publish date — and nothing else.
+
+```txt
+GET /2026/agent-readable-websites.md
+# Build websites that agents can read
+> Why I publish llms.txt, raw Markdown, and JSON-LD ...
+Author: Howard Peng (https://howardpeng.com)
+```
+
+There's a [`/llms.txt`](/llms.txt) index that maps the whole site the way a
+`sitemap.xml` does for crawlers, and a `/llms-full.txt` that inlines every post
+for a single fetch. Structured data (`Person`, `BlogPosting`) ships as JSON-LD
+in the page head so the facts are machine-readable without scraping prose.
+
+## Why bother
+
+Two reasons. First, citation: when an agent can read your claims cleanly — with
+a source URL and a captured date — it can attribute them. Provenance is the
+currency. Second, discipline: writing for a reader that has no patience for
+filler makes the human version better too. Copy is part of the design.
+
+None of this requires a database or a backend. It's just routes that emit text.
+The cheapest possible infrastructure for the most durable possible audience.
