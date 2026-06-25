@@ -18,8 +18,6 @@ export const LINKS: Link[] = [
   { label: "GitHub", href: "https://github.com/howardpen9", handle: "howardpen9" },
   { label: "Telegram", href: "https://t.me/telepeng", handle: "@telepeng" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/haoen-peng", handle: "haoen-peng" },
-  { label: "possible.trade", href: "https://possible.trade" },
-  { label: "Email", href: "mailto:howard.peng.tw@gmail.com", handle: "howard.peng.tw@gmail.com" },
 ];
 
 export type Project = {

@@ -8,3 +8,8 @@ export function formatDate(iso: string): string {
     timeZone: "UTC",
   });
 }
+
+export function formatMonthDay(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+}

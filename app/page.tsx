@@ -1,53 +1,37 @@
 import Link from "next/link";
-import Image from "next/image";
 import { getAllPosts } from "@/lib/posts";
-import { formatDate } from "@/lib/format";
-import { SITE } from "@/lib/config";
+import { formatMonthDay } from "@/lib/format";
 
 export default function Home() {
   const posts = getAllPosts();
 
   return (
-    <div className="py-4">
-      <section className="flex items-center gap-4">
-        <Image
-          src={SITE.avatar}
-          alt={SITE.name}
-          width={64}
-          height={64}
-          priority
-          className="rounded-xl border"
-        />
-        <div>
-          <h1 className="text-xl font-semibold tracking-tight">{SITE.name}</h1>
-          <p className="font-mono text-sm text-accent">{SITE.role}</p>
-        </div>
-      </section>
-
-      <p className="mt-6 leading-relaxed text-muted">{SITE.bio}</p>
-
-      <section className="mt-14">
-        <h2 className="mb-4 text-xs font-medium uppercase tracking-widest text-faint">Writing</h2>
-        {posts.length === 0 ? (
-          <p className="text-sm text-muted">No posts yet.</p>
-        ) : (
-          <ul className="-mx-2">
-            {posts.map((post) => (
+    <div className="py-8">
+      {posts.length === 0 ? (
+        <p className="text-sm text-muted">No posts yet.</p>
+      ) : (
+        <ul>
+          {posts.map((post, i) => {
+            const showYear = i === 0 || posts[i - 1].year !== post.year;
+            return (
               <li key={`${post.year}/${post.slug}`}>
                 <Link
                   href={`/${post.year}/${post.slug}`}
-                  className="group flex items-baseline justify-between gap-4 rounded-md px-2 py-2.5 transition-colors hover:bg-card"
+                  className="group flex items-baseline gap-4 rounded-md py-2.5 transition-colors"
                 >
-                  <span className="transition-colors group-hover:text-accent">{post.title}</span>
-                  <time dateTime={post.date} className="shrink-0 font-mono text-xs text-faint">
-                    {formatDate(post.date)}
+                  <span className="w-12 shrink-0 font-mono text-sm text-faint">
+                    {showYear ? post.year : ""}
+                  </span>
+                  <span className="flex-1 transition-colors group-hover:text-accent">{post.title}</span>
+                  <time dateTime={post.date} className="shrink-0 font-mono text-sm text-faint">
+                    {formatMonthDay(post.date)}
                   </time>
                 </Link>
               </li>
-            ))}
-          </ul>
-        )}
-      </section>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }
