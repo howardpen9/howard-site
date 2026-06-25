@@ -55,11 +55,12 @@ export const PROJECTS: Project[] = [
   {
     name: "x-watchlist",
     tagline:
-      "A pipeline that turns a list of X handles into a behavior map — profiles, links, and activity tracked over time. Private.",
+      "A pipeline that turns a list of X handles into a behavior map — surface-area tiers, activity personas, and follower/bio distributions, tracked over time. Closed source; live cohort dashboard.",
+    href: "https://x-watchlist-production.up.railway.app/#overview",
     year: "2026",
     status: "private",
     featured: true,
-    // image: "/projects/x-watchlist.png", // add a screenshot to enable
+    image: "/projects/x-watchlist.png",
   },
   {
     name: "talkBuffett",
