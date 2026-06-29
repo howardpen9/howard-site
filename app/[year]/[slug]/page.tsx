@@ -24,6 +24,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const post = getPost(year, slug);
   if (!post) return {};
   const url = `/${year}/${slug}`;
+
+  const banner = post.image ?? null;
+
   return {
     title: post.title,
     description: post.description,
@@ -37,7 +40,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       description: post.description,
       url,
       publishedTime: post.date,
+      images: banner ? [{ url: banner, width: 1200, height: 675, alt: post.title }] : undefined,
     },
+    twitter: banner
+      ? { card: "summary_large_image", images: [banner], site: "@0xhoward_peng" }
+      : undefined,
   };
 }
 

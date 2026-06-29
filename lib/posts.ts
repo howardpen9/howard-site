@@ -26,6 +26,7 @@ export type PostMeta = {
   lang?: string;
   source_url?: string;
   captured_at?: string;
+  image?: string; // social/OG banner, e.g. /posts/<slug>/banner.png
 };
 
 export type Post = PostMeta & {
@@ -107,6 +108,7 @@ export function getAllPosts(): Post[] {
       lang: primary.lang,
       source_url: data.source_url as string | undefined,
       captured_at: data.captured_at as string | undefined,
+      image: data.image as string | undefined,
       content: primary.content,
       langs,
     });
