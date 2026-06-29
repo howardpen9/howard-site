@@ -1,0 +1,109 @@
+---
+title: "Value vs attention: the 7× inversion on X"
+description: "Same 10 days: an AI video demo pulled 10.7M views; a prediction-market post backed by $10b+ in real monthly money pulled 1.6M. I widened it to 1,100+ posts to map the gap — on X, attention is decoupled from economic value."
+date: "2026-06-26"
+tags: ["x", "attention", "prediction-markets", "data"]
+draft: false
+source_url: "https://howardpeng.com/2026/attention-vs-value"
+captured_at: "2026-06-26"
+lang: "en"
+---
+
+One pair of numbers first, over the same 10 days:
+
+- An AI video model launch (Seedance 2.0 Mini) → **10.7M** views
+- A Polymarket post about real NFL player arrests → **1.6M** views
+
+About a **7× gap**. Here's the pair:
+
+<Tweet url="https://x.com/0xHoward_Peng/status/2070425097702363384" />
+
+Here's the strange part: Polymarket clears **$10b+** in real money every month. The thing that actually moves money and shapes real outcomes gets a fraction of the attention a "fun" AI video demo does.
+
+Why is attention on X so detached from economic value?
+
+## Treat attention as a market
+
+Reframe it. Think of attention as a market and ask one question: **how much real money sits behind each unit of it?**
+
+- AI video is **cheap attention** — huge reach, but almost no real stake behind any single view. You watch it and you're done.
+- A prediction market is **expensive attention** — little reach, but every view sits on top of a real position, a real settlement, a real consequence.
+
+In business terms it's a difference in **value per customer**: spectacle has a low one, substance has a high one. But the feed prices it exactly backwards — it pays the highest price for the cheapest thing.
+
+This isn't a moral problem, it's a mechanical one. X is structurally a spectacle market, not a value market. Once you see that, the 7× gap stops being surprising.
+
+<QuadrantChart
+  xAxis={{ label: "Attention (reach)", low: "low", high: "high" }}
+  yAxis={{ label: "Value (real money behind it)", low: "low", high: "high" }}
+  quadrants={{ tl: "substance, unseen", tr: "ideal", bl: "fringe", br: "spectacle — the feed's favorite" }}
+  points={[
+    { x: 90, y: 10, label: "AI video demo · 10.7M", tone: "spectacle" },
+    { x: 70, y: 18, label: "sports · 80% of reach", tone: "spectacle" },
+    { x: 46, y: 70, label: "prediction-market post · 1.6M / $10b+", tone: "substance" },
+    { x: 14, y: 82, label: "product / market data · 1.3%", tone: "substance" },
+  ]}
+  caption="The same data on a value × attention plane: spectacle (AI video, sports) piles up bottom-right — high attention, low value; the things that actually weigh something (prediction markets, market data) are stranded top-left — high value, barely seen. The feed pays the bottom-right and starves the top-left."
+/>
+
+## Why? Two things
+
+**First, X rewards what you can watch.** A video model's output *is* the content — it plays right in your timeline. A prediction is a number; an arrest list is text. One is spectacle, one is information. And this isn't a guess — X's own published ranking algorithm explicitly rewards dwell time, video views, and profile-click signals (see the reference below). The feed pays for things that get watched to the end, and text and numbers lose by default.
+
+**Second, the prediction-market crowd doesn't live on X.** The people who actually place bets and price probabilities aren't paying attention on this feed. So even when the content is solid, the right audience isn't here to catch it.
+
+## That 7× is just one pair — what happens when you zoom out?
+
+One cherry-picked pair can't be the conclusion, so I widened it. I pulled the **83-person cohort** Polymarket officially tags, took their **top 120 posts by reach** over the last 10 days, and sorted by topic:
+
+<StatCards stats={[
+  { value: "9.3M", label: "Total views" },
+  { value: "120", label: "Posts ranked" },
+  { value: "12", label: "Active accounts" },
+  { value: "80%", label: "Sports share" },
+]} />
+
+<BarChart
+  data={[
+    { label: "Sports — NFL & gossip", value: 55.9, count: 66 },
+    { label: "Sports — World Cup", value: 23.9, count: 12 },
+    { label: "Meme & culture", value: 14.2, count: 7 },
+    { label: "Crypto / Robotics / AI", value: 3.4, count: 24 },
+    { label: "Recruiting", value: 1.3, count: 5 },
+    { label: "Product & data (the actual market)", value: 1.3, count: 6 },
+  ]}
+  caption="Each row: solid bar = share of reach, faded bar = share of posts — same 0–100% scale. Crypto/AI's posts bar dwarfs its reach bar — that's the inversion."
+/>
+
+**80% of the reach is sports.** And the most telling part is the two numbers that don't line up: `Crypto / Robotics / AI` got 24 posts (the most of any category after NFL) and only 3.4% of the reach; the actual "product & market data" got 6 posts and 1.3%.
+
+In other words — **even when they post substance, it barely reaches anyone.** Even this company's loudest accounts aren't selling odds; they're farming borrowed sports attention. Because their behavior says the same thing: on X, information doesn't pay.
+
+> **Method & limits** (because numbers lie): this is X data, not everything. Nearly half of the 83 posted nothing in the last 10 days; the top 120 are drawn from originals + quotes by reach, replies excluded; retweets weren't captured (a `from:` limit in twitterapi); the most active accounts may have hit a pagination cap and been truncated. The direction holds; don't copy the absolute magnitudes.
+
+## Wait — is this even a fair comparison?
+
+You could push back: the comparison is rigged from the start. AI video is a consumer product; Polymarket is a financial one. Financial products carry big money and a narrow audience by nature; consumer products carry big reach and small per-interaction stakes by nature. So a large "value per view" gap is partly baked into the product type — not all of it is X's fault.
+
+That objection is half right. The **static** gap really does mix in something intrinsic to the product. Granted.
+
+<Aside term="Static gap">the gap you get from a single snapshot — lining up how much real money sits behind each view on both sides at one moment. That kind of snapshot bakes part of the gap into the product type: financial products carry a high value-per-customer by nature, consumer products a low one.</Aside>
+
+The interesting half is the **dynamic** one. AI video generation moves real money too: API spend, paid generations, the creator economy. Its monthly settled volume is probably still below Polymarket's $10b+ today.
+
+The open question: **when does it cross?** If one day consumer-gen money flow catches — or passes — prediction markets, then "high attention = low value" gets overturned by its own example.
+
+Tracking that means pulling both sides' monthly real settlement into a time series — which I haven't done yet. So I'll leave the suspense here: **today it's an inversion; whether the inversion flips itself back is an open TODO.**
+
+## So what
+
+**One: don't treat attention as a proxy for value.** How something performs in the feed and how much it weighs in the world are two different things. X is a spectacle market, not a value market — winning here and mattering out there aren't the same.
+
+**Two, if you're building:** the content engine that wins is **vertical**, not generic — the data is clear on that. But watch whether the vertical you pick is *borrowed* heat. Polymarket's 80% looks impressive, but that's the NFL audience, not the prediction-market audience. When the World Cup ends and the NFL season turns over, that attention leaves with it. It's rented, not owned.
+
+The real question was never "how do I get attention." It's **how do I get the kind of attention that matches my value.** X will pay for anything watchable — but whether your thing *deserves* to be seen and whether it *gets* seen are, here, two separate things.
+
+## References
+
+- Original thread (the 7× gap / 1,100+ posts across two X Lists) — [x.com/0xHoward_Peng](https://x.com/0xHoward_Peng/status/2070425097702363384)
+- X ranking algorithm (what the feed rewards) — [github.com/xai-org/x-algorithm](https://github.com/xai-org/x-algorithm)

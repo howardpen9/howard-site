@@ -44,8 +44,9 @@ Once you have a thesis + angle + anchor, state the thesis and a one-line shape b
 Write in Howard's voice (see below). Open with the thesis as a perspective shift, keep paragraphs short, end on the takeaway.
 
 ### 4. Embed images + References
-- For each pasted image: `mkdir -p public/posts/<slug>/` then `cp "<temp-path>" public/posts/<slug>/<descriptive-name>.png`. ⚠ Temp paths get cleaned up by the OS — copy them **in this session**, immediately.
-- Reference in the MDX with standard markdown at the right spot: `![alt text you wrote from seeing the image](/posts/<slug>/<descriptive-name>.png)`. Optionally add a one-line italic caption under it.
+- **Name every figure `fig-<N>-<short-name>.png`** (e.g. `fig-1-directory.png`, `fig-2-bio-length.png`), numbered in reading order. This stable ID makes later swaps trivial ("change fig 1") — Howard's explicit ask for long-form posts.
+- For each pasted image: `mkdir -p public/posts/<slug>/` then `cp "<temp-path>" public/posts/<slug>/fig-<N>-<short-name>.png`. ⚠ Temp paths get cleaned up by the OS fast — copy them **in this session, immediately** (if already gone, re-capture the source, e.g. screenshot a live dashboard with the browse skill).
+- Reference in the MDX at the right spot with a numbered caption: `![Fig <N> — alt text you wrote from seeing the image](/posts/<slug>/fig-<N>-<short-name>.png)` followed by `*Fig <N> — one-line caption.*`
 - Collect every source/link into a `## References` section at the end: `- [title](url)`. Put the trigger source first.
 
 ### 5. Wrap up
@@ -83,9 +84,14 @@ lang: "zh"
 
 Default to the site's voice (see `posts/2026/agent-readable-websites.mdx`): direct, concrete, technical without jargon, opens with a perspective shift, short sentences, active voice. Adjust if Howard asks for a different register. No em-dash-stuffing; no AI vocabulary.
 
-## Language
+## Language (bilingual)
 
-Draft the article in **Chinese first**. (Bilingual display + a language switch + LLM translation routing via the Vercel AI SDK is a separate effort Howard will `/shard` out — this skill does not translate or build switch UI. It only writes the post and leaves the `lang` frontmatter field as the hook.)
+Draft in **Chinese first**, then produce an **English twin** so the post is bilingual.
+
+- Chinese: `posts/<year>/<slug>.mdx` (`lang: "zh"`).
+- English: `posts/<year>/<slug>.en.mdx` (`lang: "en"`) — same `<slug>`, `.en` suffix. Same `date`, `draft`, `source_url`, `tags`, and the **same image paths** (`/posts/<slug>/…`). Translate at author-time yourself (you are the LLM — no runtime translation service needed); keep Howard's English fragments as-is and aim for clean, natural English, not a literal gloss.
+- The site pairs the two files by base slug automatically (`lib/posts.ts`) and the post page shows a **中文 / EN toggle** (`components/lang-toggle.tsx`). The home list shows the post once (default = zh). No extra wiring needed — just write both files.
+- If Howard only wants Chinese for a given post, skip the `.en.mdx`; the toggle simply won't appear.
 
 ## Out of scope
 - Project page copy (`lib/config.ts` taglines, About cards) — not this skill.

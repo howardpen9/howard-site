@@ -129,6 +129,15 @@ a {
   border: none;
   border-top: 1px solid var(--border);
 }
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
 .prose [data-rehype-pretty-code-figure] pre {
   margin: 0;
+}
+/* Let react-tweet own its styling inside .prose (don't inherit article link color). */
+.prose .react-tweet-theme a {
+  color: inherit;
+  text-decoration: inherit;
 }

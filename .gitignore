@@ -40,3 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .gstack/
+
+# private author notes (GTM / product strategy — never publish)
+*.notes.md
+
+# background shard worktrees (worker scratch, auto-removed on land)
+.claude/worktrees/

@@ -5,7 +5,13 @@ import { getAllPostParams, getPost } from "@/lib/posts";
 import { formatDate } from "@/lib/format";
 import { Mdx } from "@/components/mdx";
 import { JsonLd } from "@/components/json-ld";
+import { LangToggle, type LangPane } from "@/components/lang-toggle";
+import { DraftEditor } from "@/components/draft-editor";
+import { Toc } from "@/components/toc";
 import { SITE } from "@/lib/config";
+import { LANGS } from "@/lib/posts";
+
+const LANG_LABEL: Record<string, string> = { zh: "中文", en: "EN" };
 
 type Params = { year: string; slug: string };
 
@@ -52,28 +58,58 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
     keywords: post.tags?.join(", "),
   };
 
+  // Draft posts on localhost get a click-to-edit overlay (never on Vercel).
+  const editable = !!post.draft && !process.env.VERCEL;
+
+  const panes: LangPane[] = LANGS.filter((code) => post.langs[code]).map((code) => {
+    const v = post.langs[code]!;
+    return {
+      code,
+      label: LANG_LABEL[code] ?? code,
+      node: (
+        <>
+          <h1 className="text-2xl font-semibold tracking-tight">{v.title}</h1>
+          <div className="mt-8">
+            {editable ? (
+              <DraftEditor year={year} slug={slug} lang={code}>
+                <Mdx source={v.content} />
+              </DraftEditor>
+            ) : (
+              <Mdx source={v.content} />
+            )}
+          </div>
+        </>
+      ),
+    };
+  });
+
   return (
     <article className="py-4">
       <Link href="/" className="font-mono text-xs text-faint transition-colors hover:text-foreground">
         ← back
       </Link>
-      <header className="mt-6">
-        <h1 className="text-2xl font-semibold tracking-tight">{post.title}</h1>
-        <div className="mt-2 flex items-center gap-3 text-sm text-faint">
-          {post.draft && (
-            <span className="rounded border border-accent/40 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent">
-              draft · local only
-            </span>
-          )}
-          <time dateTime={post.date} className="font-mono">{formatDate(post.date)}</time>
-          <a href={`/${year}/${slug}.md`} className="font-mono transition-colors hover:text-foreground">
-            view as .md
-          </a>
-        </div>
-      </header>
-      <div className="mt-8">
-        <Mdx source={post.content} />
+      <div className="mt-6 mb-6 flex items-center gap-3 text-sm text-faint">
+        {post.draft && (
+          <span className="rounded border border-accent/40 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent">
+            draft · local only
+          </span>
+        )}
+        <time dateTime={post.date} className="font-mono">{formatDate(post.date)}</time>
+        <a href={`/${year}/${slug}.md`} className="font-mono transition-colors hover:text-foreground">
+          view as .md
+        </a>
       </div>
+      <LangToggle panes={panes} />
+      {post.tags && post.tags.length > 0 && (
+        <footer className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border pt-6">
+          {post.tags.map((tag) => (
+            <span key={tag} className="font-mono text-xs text-faint">
+              #{tag}
+            </span>
+          ))}
+        </footer>
+      )}
+      <Toc />
       <JsonLd data={articleJsonLd} />
     </article>
   );
