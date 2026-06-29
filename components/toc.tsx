@@ -12,7 +12,7 @@ interface Heading {
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const STORAGE_KEY = "toc-open";
+const STORAGE_KEY = "toc-open-v2"; // bumped: default is now collapsed
 // max-w-2xl = 42rem; half = 21rem = 336px. TOC is 176px wide, gap 12px.
 // left = max(8px, 50vw - 336px - 12px - 176px)
 const TOC_WIDTH = 176;
@@ -30,9 +30,9 @@ function _readOpen(): boolean {
   if (_openCache === undefined) {
     try {
       const s = localStorage.getItem(STORAGE_KEY);
-      _openCache = s !== null ? s === "true" : true;
+      _openCache = s !== null ? s === "true" : false;
     } catch {
-      _openCache = true;
+      _openCache = false;
     }
   }
   return _openCache;
@@ -95,7 +95,7 @@ export function Toc() {
   //   client snapshot  → reads localStorage
   // React uses the server snapshot during hydration (matching server HTML = nothing,
   // because headings is empty), then switches to the client snapshot automatically.
-  const open = useSyncExternalStore(_subscribeOpen, _readOpen, () => true);
+  const open = useSyncExternalStore(_subscribeOpen, _readOpen, () => false);
 
   // Stable ref so the IO callback reads the current headings without stale closure.
   const headingsRef = useRef<Heading[]>([]);
