@@ -14,7 +14,7 @@ export function Footer() {
     <footer className="mt-24 border-t py-8 text-sm text-muted">
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
         {!article &&
-          LINKS.map((link) => (
+          LINKS.slice(0, 2).map((link) => (
             <a
               key={link.href}
               href={link.href}

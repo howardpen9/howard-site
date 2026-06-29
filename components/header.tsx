@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
+import { LangSwitch } from "./lang-switch";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -19,6 +20,7 @@ export function Header() {
             {item.label}
           </Link>
         ))}
+        <LangSwitch />
         <ThemeToggle />
       </nav>
     </header>

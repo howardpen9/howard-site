@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useSiteLang, setSiteLang } from "./lang-store";
 
 export type LangPane = { code: string; label: string; node: React.ReactNode };
 
 export function LangToggle({ panes }: { panes: LangPane[] }) {
-  const [active, setActive] = useState(panes[0]?.code);
+  const lang = useSiteLang();
 
   if (panes.length <= 1) return <>{panes[0]?.node}</>;
+
+  // Respect the global preference; fall back to the first available pane.
+  const active = panes.some((p) => p.code === lang) ? lang : panes[0].code;
 
   return (
     <div>
@@ -17,12 +20,10 @@ export function LangToggle({ panes }: { panes: LangPane[] }) {
             key={p.code}
             type="button"
             aria-pressed={active === p.code}
-            onClick={() => setActive(p.code)}
+            onClick={() => setSiteLang(p.code)}
             className={
               "rounded-md px-2 py-1 transition-colors " +
-              (active === p.code
-                ? "bg-card text-foreground"
-                : "text-faint hover:text-foreground")
+              (active === p.code ? "bg-card text-foreground" : "text-faint hover:text-foreground")
             }
           >
             {p.label}

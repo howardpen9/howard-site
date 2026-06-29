@@ -1,8 +1,7 @@
 export const SITE = {
   name: "Howard Peng",
   role: "Protocol Engineer · Mechanism Designer",
-  // Update this once the custom domain is attached in Vercel.
-  url: "https://howardpeng.com",
+  url: "https://howard-peng.xyz",
   description:
     "Howard Peng — protocol engineer & mechanism designer. Mechanism design, distributed systems, and market microstructure, toward multi-agent cooperation and AI alignment.",
   bio: "Technical Director at a $100M Telegram-ecosystem fund — technical due diligence and portfolio support across stablecoin integrations and opcode-cost optimization. I work at the intersection of mechanism design, distributed systems, and market microstructure, building toward multi-agent cooperation and AI alignment.",
