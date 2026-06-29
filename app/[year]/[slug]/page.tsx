@@ -7,6 +7,8 @@ import { Mdx } from "@/components/mdx";
 import { JsonLd } from "@/components/json-ld";
 import { LangToggle, type LangPane } from "@/components/lang-toggle";
 import { DraftEditor } from "@/components/draft-editor";
+import { ReadingMeta } from "@/components/reading-meta";
+import { readingLabel } from "@/lib/reading";
 import { Toc } from "@/components/toc";
 import { SITE } from "@/lib/config";
 import { LANGS } from "@/lib/posts";
@@ -68,6 +70,13 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
   // Draft posts on localhost get a click-to-edit overlay (never on Vercel).
   const editable = !!post.draft && !process.env.VERCEL;
 
+  // Per-language reading estimate (length cue) for the meta row.
+  const readingStats: Record<string, string> = {};
+  for (const code of LANGS) {
+    const v = post.langs[code];
+    if (v) readingStats[code] = readingLabel(v.content, code);
+  }
+
   const panes: LangPane[] = LANGS.filter((code) => post.langs[code]).map((code) => {
     const v = post.langs[code]!;
     return {
@@ -103,8 +112,9 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
         )}
         <time dateTime={post.date} className="font-mono">{formatDate(post.date)}</time>
         <a href={`/${year}/${slug}.md`} className="font-mono transition-colors hover:text-foreground">
-          view as .md
+          [view as .md]
         </a>
+        <ReadingMeta stats={readingStats} />
       </div>
       <LangToggle panes={panes} />
       {post.tags && post.tags.length > 0 && (
