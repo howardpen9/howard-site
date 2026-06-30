@@ -34,6 +34,15 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    name: "PredictMe",
+    tagline:
+      "Prediction-market app — make calls, take positions, see how right you were. Alpha, live in production.",
+    href: "https://pre-app.predictme.me",
+    year: "2026",
+    status: "live",
+    featured: true,
+  },
+  {
     name: "MakeReel",
     tagline:
       "Consumer AI video studio. Pick a template or write a prompt, pay per clip from your wallet, get a 5-second video — no account, no subscription. Powered by Seedance, settled in USDC on Base.",
@@ -50,16 +59,6 @@ export const PROJECTS: Project[] = [
     year: "2026",
     status: "live",
     featured: true,
-  },
-  {
-    name: "x-watchlist",
-    tagline:
-      "A pipeline that turns a list of X handles into a behavior map — surface-area tiers, activity personas, and follower/bio distributions, tracked over time. Closed source; live cohort dashboard.",
-    href: "https://x-watchlist-production.up.railway.app/#overview",
-    year: "2026",
-    status: "private",
-    featured: true,
-    image: "/projects/x-watchlist.png",
   },
   {
     name: "talkBuffett",

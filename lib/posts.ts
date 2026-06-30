@@ -9,7 +9,7 @@ const POSTS_DIR = path.join(process.cwd(), "posts");
 // every Vercel build/runtime and unset on localhost (dev or `pnpm build`).
 const SHOW_DRAFTS = !process.env.VERCEL;
 
-export const DEFAULT_LANG = "zh";
+export const DEFAULT_LANG = "en";
 export const LANGS = ["zh", "en"] as const;
 export type Lang = (typeof LANGS)[number];
 
