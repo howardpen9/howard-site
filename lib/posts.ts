@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { zhPunct } from "./zh-punct";
 
 const POSTS_DIR = path.join(process.cwd(), "posts");
 
@@ -90,16 +91,16 @@ export function getAllPosts(): Post[] {
     for (const e of entries) {
       if ((LANGS as readonly string[]).includes(e.lang)) {
         langs[e.lang as Lang] = {
-          title: String(e.data.title ?? base),
-          description: String(e.data.description ?? ""),
-          content: e.content,
+          title: zhPunct(String(e.data.title ?? base)),
+          description: zhPunct(String(e.data.description ?? "")),
+          content: zhPunct(e.content),
         };
       }
     }
 
     posts.push({
-      title: String(data.title ?? base),
-      description: String(data.description ?? ""),
+      title: zhPunct(String(data.title ?? base)),
+      description: zhPunct(String(data.description ?? "")),
       date: String(data.date ?? `${year}-01-01`),
       year,
       slug: base,
@@ -109,7 +110,7 @@ export function getAllPosts(): Post[] {
       source_url: data.source_url as string | undefined,
       captured_at: data.captured_at as string | undefined,
       image: data.image as string | undefined,
-      content: primary.content,
+      content: zhPunct(primary.content),
       langs,
     });
   }

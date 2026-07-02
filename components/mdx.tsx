@@ -1,5 +1,6 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import { remarkFullUrls } from "@/lib/remark-full-urls";
 import rehypeSlug from "rehype-slug";
 import rehypePrettyCode from "rehype-pretty-code";
 import { XEmbed } from "@/components/x-embed";
@@ -17,7 +18,7 @@ const options = {
   // prevent eval/Function access even in the unlikely edge case.
   blockJS: false,
   mdxOptions: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkFullUrls],
     rehypePlugins: [
       rehypeSlug,
       [

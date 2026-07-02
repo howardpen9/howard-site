@@ -65,13 +65,17 @@ function isHidden(el: HTMLElement): boolean {
   return false;
 }
 
-/** Collect headings from visible .prose containers only. */
+/** Collect headings from visible .prose containers only.
+ *
+ * Only h2 lands in the TOC. h3 sub-beats (personal asides, minor observations
+ * nested under a section) are deliberately excluded so the rail stays a short,
+ * curated map of the major movements rather than a flat dump of every heading. */
 function scanHeadings(): Heading[] {
   const proseEls = Array.from(document.querySelectorAll<HTMLElement>(".prose"));
   const result: Heading[] = [];
   for (const prose of proseEls) {
     if (isHidden(prose)) continue;
-    prose.querySelectorAll<HTMLElement>("h2, h3").forEach((h) => {
+    prose.querySelectorAll<HTMLElement>("h2").forEach((h) => {
       if (h.id && h.textContent) {
         result.push({
           id: h.id,
