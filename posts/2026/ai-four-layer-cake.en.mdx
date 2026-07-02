@@ -1,0 +1,192 @@
+---
+title: "DeepSeek didn't open-source a model — it open-sourced a massacre ft. DeepSpec"
+description: "What DeepSeek shipped isn't a model — it's the whole back-kitchen recipe. DeepSpec, a full toolkit for training and evaluating speculative-decoding draft models. On the AI four-layer cake it sweeps two layers at once, and what it's really aimed at is a moat someone else built out of capital."
+date: "2026-06-27"
+tags: ["ai", "deepseek", "open-source", "moat"]
+draft: false
+source_url: "https://howard-peng.xyz/2026/ai-four-layer-cake"
+captured_at: "2026-06-27"
+lang: "en"
+---
+
+DeepSeek just open-sourced something. Easy to ignore at first. It's not a model.
+
+It's **DeepSpec**. A full toolkit for training and evaluating speculative-decoding draft models. Back-kitchen tools, not the meal.
+
+Look at what they actually released and it stops feeling small. They're going after one thing: **the moat someone else built out of capital.**
+
+## Think of AI as a four-layer cake
+
+<img
+  src="/posts/ai-four-layer-cake/fig-1-four-layer-cake.png"
+  alt="The AI four-layer cake: bottom to top, L1 Compute (sell shovels, commodity), L2 Weights (commoditizing fast), L3 Inference (engineering know-how, opening up), L4 Applications (sticky users, strongest moat); a left-side arrow, Moat Strength, climbs from Commodity to a Defensible User Moat."
+  style={{ display: "block", width: "100%", maxWidth: "360px", margin: "1.5rem auto", borderRadius: "12px" }}
+/>
+
+*Fig 1 — The four-layer cake: scarcity climbs from commodity at the base to a user moat on top.*
+
+Bottom to top. Lower layers sell shovels. Upper layers own users.
+
+- **L1 Compute** — the hardware that runs models. GPUs. Data centers. Rent an H100 with a card. Already a commodity.
+- **L2 Weights** — the trained model itself. DeepSeek keeps open-sourcing them. Commoditizing fast.
+- **L3 Inference** — run the same model faster and cheaper. Quantization. KV compression. Speculative decoding. This was each lab's private serving know-how. Not anymore.
+- **L4 Applications** — the products that reach users. Brand. Distribution. Narrative.
+
+One rule: **scarcity moves up.** Once anyone can do the bottom three layers, the only money left sits at the top.
+
+Hold onto that conclusion — **the bottom three layers are out of reach for those of us without capital, but L4 needs none.** I'll come back at the end to how you actually fight there.
+
+## What makes DeepSpec special: it open-sources the back-kitchen, not the dish
+
+Why L3 is a moat. You train a model **once**. After that, millions of people query it every day. **Every query burns compute.**
+
+The pain is built in. LLMs emit one token at a time. Each token forces a full forward pass over a trillion-parameter beast. Token by token. Sequential. Slow.
+
+Speculative decoding breaks the pattern. A cheap **draft model** guesses a run of tokens. The big model verifies the whole run with **one** forward pass, in parallel. Hits are free. "Fast and cheap" just means one expensive pass buys you several tokens.
+
+How you train that draft model — and how well it guesses — used to be each serving team's secret. DeepSpec open-sourced the whole thing under MIT. It runs on a single 8-GPU machine. The metric it measures is **acceptance**: for every run the draft guesses, how many tokens the big model keeps on average. Higher acceptance, more tokens per expensive pass, higher tok/s. How they turned this back-kitchen craft into a commodity — I'll break it down in a moment.
+
+Put simply: **before, you either spent six months staffing your own serving team or paid a back-kitchen like Together or Fireworks. Now the recipe is on GitHub. Free.**
+
+## Getting the terms straight: serving, inference, post-training
+
+Three terms people blur together.
+
+**Q: Is serving the same as inference? And does this count as post-training?**
+
+They overlap in practice, but the clean relationship is **serving ⊇ inference**.
+
+**Inference** is the raw act: run the model once and compute the output. Pure compute. Tokens in, tokens out.
+
+**Serving** is the full production system. Batching. Queuing thousands of requests. Auto-scaling. KV cache. API layer. Load balancing. In one line, serving is the whole customer-service system for "people who spend tokens." Inference is just the core calculation inside it.
+
+**Does it count as post-training? No — and this is the clarification that matters most, the one I trip over myself.**
+
+Post-training happens after pre-training: SFT, RLHF, RLVR, distillation. **These all change weights.** So it belongs to **L2 (the weights layer)**, not L3.
+
+L3 (inference / serving) is the **deployment and execution** stage. The base model's weights stay frozen; you just make an already-trained model faster and cheaper — quantization, KV compression, speculative decoding, batching. DeepSpec's draft model never touches the big model: the big model stays frozen, you raise a small separate model to **guess what it will say**. And speculative decoding is **lossless** — the verification pass guarantees the same output distribution the big model would produce on its own: bit-identical under greedy decoding, same distribution (not necessarily the same sample) under temperature sampling. No quality haircut, just sooner.
+
+The dividing line in one sentence: **anything that changes the *base model's* weights (post-training included) is L2; anything that leaves them alone and bolts on auxiliary machinery to run it faster (draft models, quantization, KV compression) is L3.** Yes, the draft model gets trained too — but it never moves a gram of the base model's weights. DeepSpec lives cleanly in L3.
+
+## And this time it sweeps two layers at once
+
+Don't miss the other move they made at the same time. DeepSeek dropped **V4-Pro-DSpark** on Hugging Face too. 893GB. fp8. MoE flagship. And they **welded the draft head straight on top.**
+
+So this drop isn't one layer open-sourced. It's **two at once**: L2 (the V4 weights) + L3 (the DSpark draft model plus the full training-and-eval recipe). Same week. Of the bottom three layers of the cake, only L1 still takes real money to buy cards — and that layer you could always rent.
+
+## How DeepSpec commoditizes the whole layer
+
+Step back. When does a capability turn into a commodity? It needs four things at once. **The recipe is public. It's reproducible. It's measurable and comparable. And it ships free, bundled with the layer below.** DeepSpec and DSpark hit all four. That's the mechanism.
+
+**1. Turn black magic into a documented pipeline.** How you train a draft model. How you collect the data. The loss setup. Aligning to the target distribution. All of it used to be back-kitchen craft. DeepSpec open-sourced the full `data prep → train → eval` chain under MIT. Once a craft becomes a document anyone can copy, it stops being a craft.
+
+**2. Turn it into a measurable, comparable benchmark.** This one hurts. They put **DSpark, DFlash, and Eagle3** on the **same eval bench**, scored by acceptance across the same tasks (GSM8K, HumanEval, LiveCodeBench…). The moment something has a leaderboard, it drops from "secret" to "engineering problem": teams converge on the same best practice, and no one charges a premium for "our decoding is faster." **Leaderboard = commoditize.** (One honest note: DSpark ships with its own paper and claims to be a new method, but the public README gives no head-to-head numbers against Eagle3 and doesn't spell out what's new. So how much DSpark actually wins by is unproven. What's certain is the track is now a public, comparable race.)
+
+**3. Ship the finished piece inside the weights.** The HF card for DeepSeek-V4-Pro-DSpark states it plainly: "**not a new model — the same checkpoint with a speculative-decoding module attached.**" The accelerator is **pre-installed in the weights**; even "train your own draft" is off your plate. Giving away the layer below and tossing in the layer above for free is the standard move for pushing commoditization up a notch.
+
+**4. Stack V4's cheap attention on top, cutting cost from both ends.** DSpark cuts decode steps — one forward pass, multiple tokens. The V4 model itself, with its CSA + HCA hybrid attention, cuts compute and memory per step — official numbers: at million-token context, single-token inference takes just **27% of the FLOPs and 10% of the KV cache** of V3.2. Squeeze both axes and L3's cost curve caves in.
+
+The result: anyone can hit the same tok/s and $/token with the same recipe and the same draft. **L3's "algorithm premium" gets flattened — that's commoditization.**
+
+But one boundary stays real: **what gets commoditized is the *algorithm* layer, not the *operations* layer.** "The recipe is public" doesn't equal "you can run it fast and cheap at scale." The moat that remains: GPU-fleet utilization, large-scale batching, in-house CUDA kernels, latency SLAs, real power costs and hardware depreciation. DeepSpec pulled back the curtain on the **algorithmic** know-how of speculative decoding; the **operational** know-how of serving-at-scale still earns its keep. So L3 is **half-drained, not bone-dry** — marking L3 as "hit this drop" in the diagram below is fair, but it won't collapse all the way like L2.
+
+## So what are they after?
+
+DeepSeek open-sourced a serving recipe. What's the play? Work through the pieces and the answer is simple: **they're tearing down the advantage US AI built by piling up capital.**
+
+US rounds are already impossible to match. Record single rounds in the tens of billions. At the top, OpenAI and Anthropic run big revenue, bigger burn, and raise more still. The whole story rests on one line: **"AI costs a fortune to play."** Valuations, fundraising, talent — all of it grows from that sentence.
+
+DeepSeek attacks that sentence with everything it ships:
+
+- Open-source the weights (L2) and "you need billions to train a model" starts to crack.
+- Open-source the serving recipe (L3) and "you need a top crew just to run it cheap" cracks too.
+- Hit both layers at once and the cracks spread twice as fast.
+
+It can't open-source OpenAI's balance sheet. No one can. But it can do something sharper: **make that balance sheet matter less.** Once the layers below are free and copyable, the story that "you need to burn serious money to compete" collapses — and that story is what holds up the hundreds-of-billions valuations.
+
+This isn't charity. It's **tactics.** You can't out-raise the US on size, so you blow up the premise that you need that much capital at all.
+
+<LayerCake
+  axisLabel="scarcity climbs"
+  sweepLabel="two layers, one drop"
+  layers={[
+    { tier: "L4", title: "Applications · distribution · narrative", note: "the restaurant itself — users, channel, brand", state: "scarce", tone: "moat" },
+    { tier: "L3", title: "Inference · serving speed", note: "DeepSpec / DSpark — this drop", state: "opening up", tone: "swept", swept: true },
+    { tier: "L2", title: "Model weights · the recipe", note: "DeepSeek-V4 — this drop", state: "eroding", tone: "swept", swept: true },
+    { tier: "L1", title: "Chips · compute", note: "GPUs, the oven — everyone has it", state: "commodity", tone: "commodity" },
+  ]}
+  caption="Scarcity climbs: L1 was always a commodity; this drop sweeps L2 and L3 at once, leaving the moat only at L4 on top."
+/>
+
+## The same script, running for centuries
+
+DeepSpec left me stuck on one question: **what actually stays scarce? What won't get copied in a year, or three?** It's hard to answer. Scarcity usually sits behind a real barrier — hardware, capital — and once intelligence itself levels out, fewer high walls remain.
+
+"Scarcity moves up" is just the surface view. The real question is: **what strength do you have that no one else can copy?** That answer almost always lives closest to demand. Closest to a user's trust.
+
+Run the same lens over history and the script repeats: a layer gets standardized, turns into a commodity, the players stuck there watch margins go to zero, and the value shifts to the layer above that hasn't been copied yet.
+
+| Industry | The layer that got commoditized | Who got stuck there | Where the value went |
+|---|---|---|---|
+| Telecom | Bandwidth (3G→4G→5G→unlimited) | Carriers: margins squeezed thinner, still paying for spectrum, buildout, licenses | IM (WhatsApp, Telegram) — SMS and calls eaten alive |
+| PC / OS | Hardware (clone price war) | Compaq, Dell racing on price, margins to zero | Software (Microsoft) — Gates never built hardware |
+| Cloud | Servers (AWS turned compute into a utility) | Self-built data centers lost their point | SaaS (Salesforce, Snowflake) — own the workflow, not the servers |
+| Container shipping | Freight (standardization cut cost toward zero) | Pure shippers left to undercut each other | Distribution & demand (Walmart, Amazon) — own the users, not the ships |
+| AI (now) | L1 compute → L2 weights → L3 inference (DeepSpec prying it open) | Whoever guards "my decoding is faster" | L4 application / distribution / trust |
+
+Every row says the same thing: **the layer that gets standardized becomes a commodity; the one that keeps collecting rent is the one not yet standardized — and closest to the user.**
+
+## But what about NVIDIA? — a seeming exception that proves the rule
+
+People will say: NVIDIA's value sits at the very bottom — doesn't that break the pattern? No. NVIDIA isn't an exception, it's **the same rule, just parked at a different layer**: its GPUs plus the CUDA ecosystem can't be copied right now, so scarcity sits there for the moment.
+
+"Right now" is doing all the work. Google builds TPUs. OpenAI is making its own chips. xAI wants its own silicon too. Everyone wants out from under NVIDIA's thumb. Over time NVIDIA's share probably drifts down. But whoever ends up designing the chips still needs TSMC to build them. So the truly un-copyable ceiling may sit at TSMC's manufacturing layer — the one closest to impossible to replicate.
+
+For builders like us who actually *use* AI, the point is simple: L1 has manufacturing barriers (NVIDIA, TSMC) you can't buy your way past, while L2 and L3 are commoditizing fast — **DeepSpec is the clearest proof that L3 can be cloned.** So the only scarcity you can actually bet on is L4.
+
+DeepSpec just shows the same thing from another angle: **the floor under L3 is caving in, pushing scarcity up to L4.**
+
+## The moat is only L4 now — exactly the fight we can win
+
+So what does an L4 moat actually look like? Four forms, each matched to one move:
+
+- **Distribution** — don't wait for users to find you, go where they already are. Treat every entry point as a long-term distribution node, not a one-off ad.
+- **Narrative** — whoever sets how a category gets talked about wins. Ship public research at a steady pace until you're the reference people cite in this lane (the Stratechery of your category). Products get commoditized; narrative doesn't.
+- **Network effects** — turn the product into a multiplayer game: leaderboards, copy-trading, referral loops. User value grows with the headcount — L4's hardest lock. A single-player experience has none; a social one does.
+- **Trust** — especially in crypto, trust is the scarcest thing. Use verifiable tech (web proofs / zkTLS) to make settlement auditable, and turn "trustworthy" into both a brand and a technical edge. Anyone can copy your UI; they can't copy your trust layer.
+
+Add a fifth that gets ignored: **localization** — real native understanding of one specific market, language, or community. The thing big labs are always too impatient to do is exactly your moat.
+
+My own bet rides on this: a Telegram-native prediction market, where the core isn't a flashier UI but the mix of the above. How it actually gets wired is another post.
+
+## But "up" is the wrong axis
+
+Up to here I've framed DeepSeek as proof that L2 and L3 got commoditized. There's a sharper view: **DeepSeek isn't the victim, it's the instigator.**
+
+Joel Spolsky's old line: **commoditize your complement.** Drive the thing that complements you toward free, and demand rushes to the layer you still control. Microsoft turned hardware into a low-margin commodity, and demand flowed to the OS; Amazon and Walmart flattened their upstream, and demand flowed to the channel. Look at the table again — almost every winner wasn't "the one who happened to sit on top," it was the one who actively commoditized the layer below.
+
+DeepSeek open-sourcing models and inference isn't giving up value, it's **deliberately blowing up the moat around the US labs** — while harvesting the gravity, talent, geopolitical leverage, and narrative power of the Chinese-language ecosystem. The biggest value usually goes to the one who *starts* the commoditization, not the one passively sitting on top.
+
+So the real question isn't "which layer am I on," it's: **"can I be the one who commoditizes a layer?"** For me, concretely: can Portex commoditize some slice of Polymarket so that demand moves toward what I hold? That's the question worth three years.
+
+## So what
+
+Boil it down to one line: **any layer that gets standardized and replicable drops from moat to commodity; what keeps collecting rent long-term is the layer not yet standardized and closest to demand and trust — or the player who actively commoditizes everyone else's layer.**
+
+So three things:
+
+**One: don't mistake "how much money got burned" for a moat.** Spend is a cost, not a wall. An edge that one MIT repo can erase was never an edge.
+
+**Two: don't just ask "which layer am I on."** The layer that gets standardized becomes a commodity; the sharper question is whether you can be the instigator — commoditize your complement and pull demand toward the layer you still own.
+
+**Three, if you're building:** get clear on which people, which market you understand in a way no one else does. Compute you can rent. Weights you can grab. Serving recipes you can clone. The only thing you can't buy or copy is L4 — and the strongest move is to become the one who commoditizes that complement.
+
+DeepSeek didn't just cut the price of the model. It cut the assumption that capital can buy you the outcome.
+
+> **Method & limits**: technical names and numbers come from the public DeepSpec repo and the V4-Pro-DSpark model card (MIT, 2026-06); treat acceptance, the benchmark tasks, and the 893GB / fp8 figures as per the official source. The capital-markets read is my interpretation, not investment advice.
+
+## References
+
+- DeepSpec (speculative-decoding training + eval toolkit, incl. DSpark / DFlash / Eagle3) — [github.com/deepseek-ai/DeepSpec](https://github.com/deepseek-ai/DeepSpec)
+- DeepSeek-V4-Pro-DSpark (flagship model with a built-in draft head) — [huggingface.co/deepseek-ai/DeepSeek-V4-Pro-DSpark](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-DSpark)
+- Joel Spolsky, origin of "commoditize your complement" (Strategy Letter V) — [joelonsoftware.com](https://www.joelonsoftware.com/2002/06/12/strategy-letter-v/)
