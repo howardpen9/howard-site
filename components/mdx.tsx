@@ -8,8 +8,9 @@ import { BarChart, StatCards } from "@/components/bar-chart";
 import { LayerCake } from "@/components/layer-cake";
 import { QuadrantChart } from "@/components/quadrant-chart";
 import { Aside } from "@/components/aside";
+import { DataTable } from "@/components/data-table";
 
-const components = { Tweet: XEmbed, BarChart, StatCards, LayerCake, QuadrantChart, Aside };
+const components = { Tweet: XEmbed, BarChart, StatCards, LayerCake, QuadrantChart, Aside, DataTable };
 
 const options = {
   // MDX from the local file system is authored content, not user input.

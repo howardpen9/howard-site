@@ -136,13 +136,18 @@ DeepSpec left me stuck on one question: **what actually stays scarce? What won't
 
 Run the same lens over history and the script repeats: a layer gets standardized, turns into a commodity, the players stuck there watch margins go to zero, and the value shifts to the layer above that hasn't been copied yet.
 
-| Industry | The layer that got commoditized | Who got stuck there | Where the value went |
-|---|---|---|---|
-| Telecom | Bandwidth (3G→4G→5G→unlimited) | Carriers: margins squeezed thinner, still paying for spectrum, buildout, licenses | IM (WhatsApp, Telegram) — SMS and calls eaten alive |
-| PC / OS | Hardware (clone price war) | Compaq, Dell racing on price, margins to zero | Software (Microsoft) — Gates never built hardware |
-| Cloud | Servers (AWS turned compute into a utility) | Self-built data centers lost their point | SaaS (Salesforce, Snowflake) — own the workflow, not the servers |
-| Container shipping | Freight (standardization cut cost toward zero) | Pure shippers left to undercut each other | Distribution & demand (Walmart, Amazon) — own the users, not the ships |
-| AI (now) | L1 compute → L2 weights → L3 inference (DeepSpec prying it open) | Whoever guards "my decoding is faster" | L4 application / distribution / trust |
+<DataTable
+  columns={["Industry", "The layer that got commoditized", "Who got stuck there", "Where the value went"]}
+  rows={[
+    ["Telecom", "Bandwidth (3G→4G→5G→unlimited)", "Carriers: margins squeezed thinner, still paying for spectrum, buildout, licenses", "IM (WhatsApp, Telegram) — SMS and calls eaten alive"],
+    ["PC / OS", "Hardware (clone price war)", "Compaq, Dell racing on price, margins to zero", "Software (Microsoft) — Gates never built hardware"],
+    ["Cloud", "Servers (AWS turned compute into a utility)", "Self-built data centers lost their point", "SaaS (Salesforce, Snowflake) — own the workflow, not the servers"],
+    ["Container shipping", "Freight (standardization cut cost toward zero)", "Pure shippers left to undercut each other", "Distribution & demand (Walmart, Amazon) — own the users, not the ships"],
+    ["AI (now)", "L1 compute → L2 weights → L3 inference (DeepSpec prying it open)", "Whoever guards \"my decoding is faster\"", "L4 application / distribution / trust"],
+  ]}
+  highlightRow={4}
+  highlightCol={3}
+/>
 
 Every row says the same thing: **the layer that gets standardized becomes a commodity; the one that keeps collecting rent is the one not yet standardized — and closest to the user.**
 

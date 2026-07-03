@@ -136,6 +136,120 @@ a {
 .prose [data-rehype-pretty-code-figure] pre {
   margin: 0;
 }
+/* Baseline for plain markdown tables (prefer <DataTable> for dense data). */
+.prose > table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.prose > table th,
+.prose > table td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+.prose > table th {
+  background: var(--card);
+  font-weight: 600;
+}
+
+/* ---- DataTable (components/data-table.tsx) ---- */
+.dt {
+  margin: 1.5rem 0;
+}
+.dt-scroll {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  overflow-x: auto;
+}
+.dt table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+.dt thead th {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.dt tbody th,
+.dt tbody td {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  vertical-align: top;
+}
+.dt tbody tr + tr th,
+.dt tbody tr + tr td {
+  border-top: 1px solid var(--border);
+}
+.dt tbody th {
+  font-weight: 600;
+  color: var(--foreground);
+}
+.dt tbody td {
+  color: var(--muted);
+}
+.dt td.dt-hl-col {
+  color: var(--foreground);
+}
+.dt tr.dt-hl-row {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+.dt-label {
+  display: none;
+}
+.dt-caption {
+  margin-top: 0.625rem;
+  font-size: 0.75rem;
+  color: var(--faint);
+  text-align: center;
+}
+/* Mobile: collapse each row into a stacked card with repeated labels. */
+@media (max-width: 640px) {
+  .dt table,
+  .dt tbody,
+  .dt tbody tr,
+  .dt tbody th,
+  .dt tbody td {
+    display: block;
+  }
+  .dt thead {
+    display: none;
+  }
+  .dt tbody tr {
+    padding: 0.25rem 0 0.75rem;
+  }
+  .dt tbody tr + tr {
+    border-top: 1px solid var(--border);
+  }
+  .dt tbody tr + tr th,
+  .dt tbody tr + tr td {
+    border-top: none;
+  }
+  .dt tbody th {
+    padding: 0.625rem 0.875rem 0;
+    font-size: 0.875rem;
+  }
+  .dt tbody td {
+    padding: 0.5rem 0.875rem 0;
+  }
+  .dt-label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--faint);
+    margin-bottom: 0.125rem;
+  }
+}
 /* Let react-tweet own its styling inside .prose (don't inherit article link color). */
 .prose .react-tweet-theme a {
   color: inherit;
