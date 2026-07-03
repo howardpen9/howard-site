@@ -4,8 +4,10 @@
 // serverless — each lambda instance counts separately, so set up Upstash
 // before relying on the limits in production).
 
-const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
-const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+// Accept both naming schemes: UPSTASH_* (direct Upstash) and KV_* (the names
+// Vercel's marketplace injects when an Upstash resource is connected).
+const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
 
 type PipelineResult = { result: unknown }[] | null;
 
