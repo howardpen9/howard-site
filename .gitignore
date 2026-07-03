@@ -47,6 +47,8 @@ next-env.d.ts
 
 # raw persona sources (PDFs etc.) — only converted .md in content/persona/ ships
 content/persona/src/
+# regenerated on every build by scripts/github-activity.mjs
+content/persona/github-activity.md
 
 # background shard worktrees (worker scratch, auto-removed on land)
 .claude/worktrees/
