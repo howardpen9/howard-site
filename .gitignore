@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -43,6 +44,9 @@ next-env.d.ts
 
 # private author notes (GTM / product strategy — never publish)
 *.notes.md
+
+# raw persona sources (PDFs etc.) — only converted .md in content/persona/ ships
+content/persona/src/
 
 # background shard worktrees (worker scratch, auto-removed on land)
 .claude/worktrees/
