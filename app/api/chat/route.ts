@@ -92,6 +92,7 @@ export async function POST(request: Request) {
   }
 
   // ClawRouter flakes occasionally — one retry absorbs most transient failures.
+  // Safe to retry because nothing has been streamed to the client yet.
   let upstream: Response | null = null;
   for (let attempt = 0; attempt < 2 && !upstream?.ok; attempt++) {
     try {
@@ -106,8 +107,9 @@ export async function POST(request: Request) {
           messages: [{ role: "system", content: buildSystemPrompt() }, ...turns],
           max_tokens: MAX_OUTPUT_TOKENS,
           temperature: 0.7,
+          stream: true,
         }),
-        signal: AbortSignal.timeout(40_000),
+        signal: AbortSignal.timeout(50_000),
       });
       if (!upstream.ok) {
         console.error(`[chat] upstream ${upstream.status} (attempt ${attempt + 1}):`, (await upstream.text()).slice(0, 500));
@@ -117,31 +119,78 @@ export async function POST(request: Request) {
       upstream = null;
     }
   }
-  if (!upstream?.ok) {
+  if (!upstream?.ok || !upstream.body) {
     return Response.json(
       { error: "模型暫時連不上，等一下再試。/ The model is unreachable right now. Try again in a minute." },
       { status: 502 },
     );
   }
 
-  const data = await upstream.json();
-  const raw: string = data?.choices?.[0]?.message?.content ?? "";
-  // Some relayed models (e.g. MiniMax) inline their reasoning as <think>…</think>.
-  const reply = raw.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
-  if (!reply) {
-    return Response.json({ error: "Empty reply from the model. Try again." }, { status: 502 });
-  }
-
+  // Proxy the upstream SSE as a plain text stream, hiding any inline
+  // <think>…</think> reasoning some relayed models emit. `visible()` is the
+  // reasoning-free view of everything received so far; only its growth is sent.
   const question = turns[turns.length - 1].content;
-  const notify =
-    perEmail.used === 1
-      ? // First message today from this email → push the lead to Telegram.
-        notifyTelegram(`💬 New chat lead\n${email} (${ip})\n\nQ: ${question.slice(0, 300)}\n\nA: ${reply.slice(0, 300)}`)
-      : Promise.resolve();
-  await Promise.all([
-    logChat({ email, ip, question, reply: reply.slice(0, 500), usage: data?.usage }),
-    notify,
-  ]);
+  const upstreamBody = upstream.body;
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+  let raw = "";
+  let sentChars = 0;
+  let sseBuf = "";
 
-  return Response.json({ reply, remaining: perEmail.remaining });
+  const visible = () => {
+    let v = raw.replace(/<think>[\s\S]*?<\/think>/g, "");
+    const open = v.lastIndexOf("<think>"); // unclosed block still being generated
+    if (open !== -1) v = v.slice(0, open);
+    return v;
+  };
+
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      const reader = upstreamBody.getReader();
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          sseBuf += decoder.decode(value, { stream: true });
+          const lines = sseBuf.split("\n");
+          sseBuf = lines.pop() ?? "";
+          for (const line of lines) {
+            const s = line.trim();
+            if (!s.startsWith("data:")) continue;
+            const payload = s.slice(5).trim();
+            if (!payload || payload === "[DONE]") continue;
+            try {
+              const delta = JSON.parse(payload)?.choices?.[0]?.delta?.content;
+              if (typeof delta === "string") raw += delta;
+            } catch {
+              // ignore malformed SSE fragments
+            }
+          }
+          const v = visible();
+          if (v.length > sentChars) {
+            controller.enqueue(encoder.encode(v.slice(sentChars)));
+            sentChars = v.length;
+          }
+        }
+      } catch (err) {
+        console.error("[chat] stream read failed:", err);
+      }
+      const reply = visible().trim();
+      const notify =
+        perEmail.used === 1 && reply
+          ? // First message today from this email → push the lead to Telegram.
+            notifyTelegram(`💬 New chat lead\n${email} (${ip})\n\nQ: ${question.slice(0, 300)}\n\nA: ${reply.slice(0, 300)}`)
+          : Promise.resolve();
+      await Promise.all([logChat({ email, ip, question, reply: reply.slice(0, 500) }), notify]).catch(() => {});
+      controller.close();
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-store",
+      "X-Remaining": String(perEmail.remaining),
+    },
+  });
 }

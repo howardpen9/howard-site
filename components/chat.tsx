@@ -103,14 +103,34 @@ export function Chat() {
         // Skip the canned greeting; the server rebuilds its own system prompt.
         body: JSON.stringify({ email: savedEmail, messages: next.slice(1) }),
       });
-      const data = await res.json();
       if (!res.ok) {
+        // Errors are still JSON; only success responses stream plain text.
+        const data = await res.json().catch(() => ({}));
         setError(data.error ?? (isZh ? "發生錯誤。" : "Something went wrong."));
         if (typeof data.remaining === "number") setRemaining(data.remaining);
         return;
       }
-      setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
-      if (typeof data.remaining === "number") setRemaining(data.remaining);
+      const headerRemaining = Number(res.headers.get("X-Remaining"));
+      if (Number.isFinite(headerRemaining)) setRemaining(headerRemaining);
+
+      // Stream the reply into a growing assistant bubble.
+      setMessages((m) => [...m, { role: "assistant", content: "" }]);
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      if (reader) {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          acc += decoder.decode(value, { stream: true });
+          const snapshot = acc;
+          setMessages((m) => [...m.slice(0, -1), { role: "assistant", content: snapshot }]);
+        }
+      }
+      if (!acc.trim()) {
+        setMessages((m) => m.slice(0, -1));
+        setError(isZh ? "模型沒有回覆，請再試一次。" : "Empty reply — try again.");
+      }
     } catch {
       setError(isZh ? "網路錯誤，請再試一次。" : "Network error — try again.");
     } finally {
@@ -173,7 +193,9 @@ export function Chat() {
             </div>
           </div>
         ))}
-        {loading && <p className="animate-pulse font-mono text-xs text-faint">thinking…</p>}
+        {loading && messages[messages.length - 1]?.role === "user" && (
+          <p className="animate-pulse font-mono text-xs text-faint">thinking…</p>
+        )}
         <div ref={bottomRef} />
       </div>
 
