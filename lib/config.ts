@@ -77,6 +77,36 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
+    name: "MemePose",
+    tagline:
+      "Make a hand gesture at your front camera and a meme fires instantly — auto-cut into a shareable vertical short. On-device recognition, nothing uploaded. Telegram Mini App.",
+    href: "https://t.me/MemePoseBOT",
+    year: "2026",
+    status: "building",
+    image: "/projects/memepose.png",
+    featured: true,
+  },
+  {
+    name: "x-watchlist",
+    tagline:
+      "Turn a list of X handles into a behavior map — a profile and activity-tracking pipeline, exposed over MCP. Built around the xAI cohort as the case study.",
+    href: "https://x.com/xWatchlist_",
+    year: "2026",
+    status: "live",
+    image: "/projects/x-watchlist.png",
+    featured: true,
+  },
+  {
+    name: "KaiPanGa 開盤嘎",
+    tagline:
+      "Taiwan stock-market danmaku — real-time bullet-chat over the TAIEX intraday chart, live through the trading session. A Telegram Mini App.",
+    href: "https://t.me/KaiPanGa_BOT/app",
+    year: "2026",
+    status: "live",
+    image: "/projects/kaipanga.png",
+    featured: true,
+  },
+  {
     name: "AlphaLine",
     tagline: "US-first AI stock research — an agent-readable data layer for equities.",
     year: "2026",
