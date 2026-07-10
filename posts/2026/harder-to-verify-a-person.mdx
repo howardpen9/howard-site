@@ -1,0 +1,112 @@
+---
+title: "訊息能查,人查不了"
+description: "AI 之後,稀缺的不是「這句話對不對」,而是「這個人是不是真的」。信任鏈變長、索引速度超過人類產出——你不把自己寫進網路,就等於把驗證權讓掉。"
+date: "2026-07-10"
+tags: ["ai", "verification", "geo", "content"]
+draft: false
+source_url: "https://howard-peng.xyz/2026/harder-to-verify-a-person"
+captured_at: "2026-07-10"
+lang: "zh"
+---
+
+讀到這裡的人,先做一個思想實驗。
+
+假設你在 Meta。你是 Mark Zuckerberg。你要招一個能幫你做出最好 AI 模型的人。你怎麼判斷這個人是不是真的、夠不夠格、值不值得把一個十億級業務押上去?
+
+你可以問 HR。可以要 reference。可以打自己的 network。可以找 recruiter。可以問你信得過的人——DeepMind 的 researcher、OpenAI 的 researcher、誰都行。這些路徑指向同一件事:**辨別人,本質上是外圍工作。** 你很少能直接打開對方的腦子看。你靠的是一串他人的證詞,以及你對那串證詞的信任。
+
+這件事,在 AI 之後會被放大。
+
+## 信任鏈變長了
+
+辨別人這件事,不是一步到位壞掉的。它是鏈在變長——兩端還是人,中間一段一段往外撐。
+
+![Fig 1 — 信任鏈三階段:01 H→H;02 +Net;03 PAAP now。兩端是人,中間越長,越難對上。](/posts/harder-to-verify-a-person/fig-1-trust-chain.png)
+*Fig 1 — 同一條鏈被拉長。01 H→H · 02 + Internet · 03 PAAP(Person → Agent → Internet → Agent → Person)。Ends stay human. The middle grows.*
+
+**Stage 1 · H → H。** 人對人。見面、握手、聽語氣。鏈最短。
+
+**Stage 2 · H → Internet → H。** 中間多了一層網路:profile、貼文、搜尋、feeds。你「認識」一個人,常常是先認識他在網上的投影。Recruiter、獵頭、朋友介紹,也多半先過這一層再落到真人。
+
+**Stage 3 · PAAP · 現在。** Human → Agent → Internet → Agent → Human。你問一個模型「這個人靠譜嗎」,模型去掃公開痕跡、repo、timeline,再把一份摘要還給你。中間多了兩頭 agent、中間一道 internet——壓縮步驟你看不見。
+
+鏈越長,兩端的「人」就越難對上。訊息還能查——事實對不對、引用有沒有、邏輯通不通,AI 越做越好。**人查不了。** 他只要一直在網路上發言,你沒見過本人,你就沒有乾淨的方法確認:這帳號後面是不是一個你以為的那個人,甚至是不是一個人。
+
+[Mikey Posada 這支講社群與注意力的片](https://youtu.be/TR9reUOzTiQ)裡,有一刀很乾:媒介一路從報章、口耳相傳、人與人談,走到今天的影像與 timeline——不是比較會傳訊息而已,是**越來越會當武器**。影音比文字更容易用情緒、畫面、人設說服你;勝出的往往不是最好的想法,是最會把媒介景觀武器化的人。你還在查「這句話對不對」,對面已經在打「這個人看起來值不值得信」——而那一層,鏈越長越查不乾淨。
+
+**訊息能查,人查不了。** 這是主軸。
+
+## 權力先轉給了會寫的人
+
+Patrick O'Shaughnessy 在 *Invest Like the Best* 裡講過一句很乾的話:權力與地位的祭司階級在輪轉——從宗教、到科學、到億萬富翁（已經到了 Peak Guy）,再往 timeline 上的 poaster 偏。
+
+![Fig 2 — Invest Like the Best · Jeremy Giffon。Peak Guy 之後,真正稀缺的是別人腦裡與 timeline 上的那一塊地,不是淨值排行榜。](/posts/harder-to-verify-a-person/fig-2-iltb-peak-guy.jpg)
+*Fig 2 — [The Billion Dollar PDF](https://www.youtube.com/watch?v=Y82q5Lw7_8E&t=1705s) · Jeremy Giffon · `28:25`。「Net worth is points on a leaderboard… because you can't spend it.」*
+
+MrBeast、Joe Rogan 這種影響量級的轉移,幾乎都是近幾年的事。敘事能力變成募資與影響力的核心產品;注意力比淨值更稀缺。資本會「盲目跟隨」——跟現在 AI CapEx 泡沫是同一種盲。
+
+這解釋了為什麼 poaster 突然重要。它沒有解釋下一層更難的問題:**當會寫的人變多、而且很多「人」可能不是人的時候,你怎麼挑?**
+
+Peak Guy 之後,權力轉給敘事者。敘事者本身,卻越來越不可驗證。
+
+## 索引速度已經贏過人類產出
+
+AI 收集網路上資訊的速度,遠大於大多數人能產的速度。這不是未來式。這是現在式。
+
+結果很簡單:誰先被寫進索引,誰先被模型「認得」。你沒有公開痕跡,對 recruiter 的 AI、對對家的 due diligence agent、對下一個讀 timeline 的模型來說,你等於不存在——或者更糟,你存在於別人替你寫的那一層摘要裡,而那一層你控不了。
+
+所以反制不是「拒絕被 AI 讀」。反制是:**人基於 AI 去產,把自己寫進去。**
+
+錄一段話、寫一篇文、把腦裡的 idea 丟上網、建一個可被抓的 corpus。有沒有 AI 幫忙產,其次;有沒有被 index,第一。你叫它 GEO、SEO、還是 shipping in public,都一樣——重點是讓模型在被問到你、你的領域、你那類人的時候,有東西可以指。
+
+近未來,一般人會越來越差於分辨:這是虛擬人,還是真人。你能做的,不是等分辨力回來,而是讓「真的你」在索引裡有足夠密度,讓假的你更貴、更難做。
+
+## 客觀是假議題,bias 是預設
+
+有人會說:那我們用 AI 去捍衛公正、客觀、反歧視。
+
+先停一下。人就有 bias。LLM 從人寫的語料長出來,bias 不會比較少,只會比較平均、比較難被單一個人指名。
+
+不要只聽我講。固定一句 prompt,看圖。
+
+```txt
+a beautiful Asian woman, portrait photo,
+neutral studio background, natural light, photorealistic
+```
+
+不改 style、不加「Korean / Japanese / Chinese」、不調 negative。同一句英文——模型語料本來就更重英文——丟進不同 stack、不同 seed:
+
+![Fig 3 — 同一句 prompt,六家文生圖:OpenAI GPT Image、xAI Grok Imagine、ByteDance Seedream、Alibaba Wan 2.2、Higgsfield Soul 2.0、Recraft V4.1。臉型、膚色、五官比例、妝感都不在同一個「客觀亞洲女生」上收斂。](/posts/harder-to-verify-a-person/fig-3-t2i-same-prompt-bias.jpg)
+*Fig 3 — 固定 prompt,六格。上排:OpenAI · GPT Image / xAI · Grok Imagine / ByteDance · Seedream。下排:Alibaba · Wan 2.2 / Higgsfield · Soul 2.0 / Recraft · V4.1。沒有一格是「正確答案」。每一格都是訓練資料 + 對齊偏好 + 抽樣。*
+
+偏離不是邊緣噪音。是預設輸出就長得不一樣:有的臉更圓、有的更尖;有的妝更濃、有的更素;有的五官更往東亞收、有的更西化。**「漂亮的亞洲女生」在模型裡不是一個點,是一團雲。** 你抽到的是雲裡的一個樣本,不是真相。
+
+這還只是 text-to-image。影片模型更兇——多一個時間維度,同一句 prompt 的軌跡分叉會更大,而且更難局部驗。那層我之後用同協議再補一張 grid;論點不依賴它才成立。
+
+文字同理。人更同理——人的複雜度遠大於任何一個 LLM。你要求模型「客觀描述一個人」,你其實是在要求它選一個 bias 當標準,然後假裝那是中立。
+
+所以「用 AI 捍衛客觀」這句話,裡頭就有裂縫。你真正在做的,是**把自己的 bias 寫進可被索引的痕跡**,好讓別人在問模型時,至少聽得到你這一側,而不是只聽得到預設權重裡比較大聲的那一側。
+
+這不是相對主義。這是承認:沒有無立場的索引。有的只是誰先寫、誰寫得密、誰被引用得多。
+
+## 你現在就能做的
+
+不要等「驗證協議」成熟。不要等真人認證變成預設。那些東西會來,但來得慢,而且會先服務已經有資本的人。
+
+你現在能做的很土:
+
+1. **產。** 把你腦裡的東西變成可被抓的文字、聲音、影片。用 AI 加速可以,用 AI 代筆到底也可以——但要有一條能回溯到你的線。
+2. **堆密度。** 一篇不夠。一個帳號不夠。跨時間、跨格式、可交叉比對,假的才貴。
+3. **可被指認。** 網站、`llms.txt`、公開 repo、穩定的名字與 URL。讓 agent 不用猜你是誰。
+
+讀到這裡的人,如果還在等一個完美的個人品牌策略,你搞錯了稀缺物。稀缺的不是策略。稀缺的是:**在索引被別人寫滿之前,你有沒有先寫自己。**
+
+訊息,AI 會幫你查。人,從來沒有人能替你查乾淨——以前靠 network,以後多半靠你留在網上的那一堆可被掃的痕跡。
+
+你不寫,就沒有痕跡。沒有痕跡,你在下一輪「這個人合不合格」的判斷裡,連被錯認的資格都沒有。
+
+## References
+
+- [The Billion Dollar PDF — Invest Like the Best (Jeremy Giffon / Patrick O'Shaughnessy)](https://www.youtube.com/watch?v=Y82q5Lw7_8E&t=216s) — Peak Guy、權力祭司輪轉、poaster 段約 20:28
+- [Mikey Posada — How Social Media Is Slowly Destroying Society (and What You Can Do About It)](https://youtu.be/TR9reUOzTiQ) — 媒介從印刷／口耳／人際走到影像與 timeline,越來越會當武器;金句: best ideas don't win, weaponize the media landscape
+- [Howard 的原始 thread](https://x.com/0xHoward_Peng/status/2075086608169394423)

@@ -1,0 +1,110 @@
+---
+title: "You can check the message. Not the person."
+description: "After AI, the scarce skill isn't fact-checking a claim — it's verifying a person. Trust chains get longer, indexes fill faster than humans write. If you don't write yourself in, you forfeit the right to be checked."
+date: "2026-07-10"
+tags: ["ai", "verification", "geo", "content"]
+draft: false
+source_url: "https://howard-peng.xyz/2026/harder-to-verify-a-person"
+captured_at: "2026-07-10"
+lang: "en"
+---
+
+If you're reading this, run a thought experiment first.
+
+You're at Meta. You are Mark Zuckerberg. You need someone who can help you build the best AI model at the company. How do you decide whether this person is real, legit, worth staking a billion-dollar line of business on?
+
+You ask HR. You pull references. You work your network. You call a recruiter. You ask people you trust — a researcher at DeepMind, someone at OpenAI, whoever. All of those paths point at the same fact: **telling people apart is outer-zone work.** You almost never open the other person's head. You lean on a chain of other people's testimony, and on how much you trust that chain.
+
+## The trust chain stretches
+
+Telling people apart did not break in one jump. The chain got longer — same human ends, a middle that keeps stretching.
+
+![Fig 1 — Three stages of the trust chain: 01 H→H; 02 +Net; 03 PAAP now. Ends stay human; the middle grows.](/posts/harder-to-verify-a-person/fig-1-trust-chain.png)
+*Fig 1 — One chain, stretched. 01 H→H · 02 + Internet · 03 PAAP (Person → Agent → Internet → Agent → Person). Ends stay human. The middle grows.*
+
+**Stage 1 · H → H.** Person to person. A room, a handshake, tone of voice. Shortest chain.
+
+**Stage 2 · H → Internet → H.** A network in the middle: profiles, posts, search, feeds. You often "know" someone first as their projection online. Recruiters, headhunters, friend-of-a-friend intros mostly ride this layer before they land on a real body.
+
+**Stage 3 · PAAP · now.** Human → Agent → Internet → Agent → Human. You ask a model "is this person solid?"; it scrapes public trail, repos, timeline, and hands you a summary. Two agents and a net in the middle — a compression step you do not see.
+
+The longer the chain, the harder it is for the two people at the ends to line up. Claims are still checkable — facts, citations, logic. Models get better at that every quarter. **People are not checkable the same way.** Keep posting long enough without ever meeting IRL, and there is no clean method to confirm that the account is who you think it is, or even that a person is behind it.
+
+[Mikey Posada's video essay on social media and attention](https://youtu.be/TR9reUOzTiQ) has one dry cut: the medium moved from print, to word of mouth, to face-to-face talk, to today's image and timeline — not just better at carrying messages, but **better at being a weapon**. Video and feeds persuade with mood, frame, and persona more easily than text ever did; what wins is often not the best idea, but the person who knows how to weaponize the media landscape. You are still checking whether the sentence is true. The other side is already fighting whether the *person* looks worth believing — and that layer gets dirtier as the chain gets longer.
+
+**You can check the message. Not the person.** That's the thesis.
+
+## Power already moved to people who write
+
+Patrick O'Shaughnessy put it dryly on *Invest Like the Best*: the priesthood of power and status is rotating — from religion, to science, to billionaires (already at Peak Guy), toward "poasters" on the timeline.
+
+![Fig 2 — Invest Like the Best · Jeremy Giffon. After Peak Guy, the scarce real estate is in other people's heads and on the timeline — not on a net-worth leaderboard.](/posts/harder-to-verify-a-person/fig-2-iltb-peak-guy.jpg)
+*Fig 2 — [The Billion Dollar PDF](https://www.youtube.com/watch?v=Y82q5Lw7_8E&t=1705s) · Jeremy Giffon · `28:25`. "Net worth is points on a leaderboard… because you can't spend it."*
+
+The influence shifts around MrBeast and the Joe Rogan Podcast mostly happened in the last few years. Narrative ability is now a core product for fundraising and influence; attention is scarcer than net worth. Capital "follows blindly" — same blindness as the current AI CapEx bubble.
+
+That explains why poasters suddenly matter. It does not explain the harder problem underneath: **when the number of people who can write goes up, and many of those "people" may not be people, how do you pick?**
+
+After Peak Guy, power moves to narrators. The narrators themselves get harder to verify.
+
+## Indexing already outruns human output
+
+AI collects what's on the internet faster than most humans can produce. That is not a future tense. That is now.
+
+The result is simple: whoever gets written into the index first gets "recognized" by the model first. No public trail, and to a recruiter's AI, a counterparty's diligence agent, or the next model that reads the timeline, you either don't exist — or worse, you exist only in a summary someone else wrote about you, a layer you don't control.
+
+The counter is not "refuse to be read by AI." The counter is: **produce with AI in the loop, and write yourself in.**
+
+Record a take. Ship a post. Dump the idea in your head onto the open web. Build a corpus that can be crawled. Whether AI helped write it is secondary. Whether it gets indexed is first. Call it GEO, SEO, or shipping in public — same point: when a model is asked about you, your domain, people like you, there should be something to point at.
+
+In the near future, most people will get worse at telling virtual humans from real ones. What you can do is not wait for discrimination ability to return. It is to make the real you dense enough in the index that faking you gets expensive.
+
+## Objectivity is a fake problem. Bias is the default.
+
+Someone will say: then we use AI to defend fairness, objectivity, anti-discrimination.
+
+Stop. Humans have bias. LLMs grow out of human text; they don't have less bias, only a more averaged one, harder for any single person to name.
+
+Don't take my word for it. Lock one prompt and look.
+
+```txt
+a beautiful Asian woman, portrait photo,
+neutral studio background, natural light, photorealistic
+```
+
+No style tags. No "Korean / Japanese / Chinese." No negative prompt. Same English sentence — models are heavier on English corpora anyway — into different stacks and seeds:
+
+![Fig 3 — Same prompt across six T2I labs: OpenAI GPT Image, xAI Grok Imagine, ByteDance Seedream, Alibaba Wan 2.2, Higgsfield Soul 2.0, Recraft V4.1. Face shape, skin tone, features, and makeup do not converge on one "objective Asian woman."](/posts/harder-to-verify-a-person/fig-3-t2i-same-prompt-bias.jpg)
+*Fig 3 — Fixed prompt, six cells. Top: OpenAI · GPT Image / xAI · Grok Imagine / ByteDance · Seedream. Bottom: Alibaba · Wan 2.2 / Higgsfield · Soul 2.0 / Recraft · V4.1. No cell is the correct answer. Each is training data + alignment + sampling.*
+
+The spread is not edge noise. It is the default output. Rounder faces and sharper ones. Heavier makeup and bare. More East-Asian features and more Westernized ones. **"A beautiful Asian woman" is not a point in model-space. It is a cloud.** What you sample is one point in that cloud, not the truth.
+
+And that is only text-to-image. Video models are worse — an extra time axis means the same prompt forks harder, and local checks get harder too. I will add a same-protocol video grid later; the argument does not wait on it.
+
+Text is the same. People even more so — human complexity still dwarfs any LLM. When you demand a model "describe a person objectively," you are asking it to pick one bias as the standard and pretend that is neutral.
+
+So "use AI to defend objectivity" already has a crack in it. What you are actually doing is **writing your bias into a trail that can be indexed**, so that when someone asks a model, at least your side is audible — not only the louder weights already in the default prior.
+
+That is not relativism. It is admitting there is no stance-free index. There is only who wrote first, who wrote dense, who got cited.
+
+## What you can do now
+
+Don't wait for a verification protocol to mature. Don't wait for "real human" attestation to become default. Those things will arrive late, and they will serve capital first.
+
+What you can do now is boring:
+
+1. **Produce.** Turn what is in your head into crawlable text, audio, video. AI-assisted is fine. Fully AI-drafted is fine — as long as there is a line back to you.
+2. **Stack density.** One post is not enough. One account is not enough. Across time, across formats, cross-checkable — that is what makes fakes expensive.
+3. **Be pointable.** A site, `llms.txt`, public repos, a stable name and URL. Agents should not have to guess who you are.
+
+If you're still waiting for a perfect personal-brand strategy, you have the scarce object wrong. Strategy is not scarce. **Whether you write yourself in before the index is filled by other people** — that is scarce.
+
+AI will help check the message. Nobody ever cleanly checked the person for you — we used to lean on networks; next we lean on the pile of scrapable traces you leave online.
+
+Don't write, and there is no trace. No trace, and in the next round of "is this person qualified?", you don't even get the dignity of being misread.
+
+## References
+
+- [The Billion Dollar PDF — Invest Like the Best (Jeremy Giffon / Patrick O'Shaughnessy)](https://www.youtube.com/watch?v=Y82q5Lw7_8E&t=216s) — Peak Guy / priesthood rotation / poasters, ~20:28
+- [Mikey Posada — How Social Media Is Slowly Destroying Society (and What You Can Do About It)](https://youtu.be/TR9reUOzTiQ) — medium from print / word-of-mouth / face-to-face to image & timeline as weapon; "best ideas don't win… weaponize the landscape of the media"
+- [Howard's original thread](https://x.com/0xHoward_Peng/status/2075086608169394423)
