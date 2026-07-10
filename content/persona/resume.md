@@ -30,7 +30,7 @@ Howard credibly fits four framings, depending on what the asker needs:
 - Advised portfolio teams on scaling production systems and go-to-market.
 
 **Independent AI-native builder** (2025 – present)
-- Solo-ships a portfolio of AI-native products across the generative stack (see site /projects): PredictMe (prediction market), MakeReel + x402-video (pay-per-call AI video, USDC on Base), talkBuffett, OpenMod.ai, AlphaLine, and developer tooling below.
+- Solo-ships a portfolio of AI-native products across the generative stack (see site /about): PredictMe (prediction market), MakeReel (makereel.xyz — not MakeReels.ai) + x402-video (pay-per-call AI video, USDC on Base), talkBuffett, OpenMod.ai, AlphaLine, and developer tooling below.
 
 ## Selected open-source & tooling
 

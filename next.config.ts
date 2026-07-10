@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
       { source: "/:year(\\d{4})/:slug.md", destination: "/raw/:year/:slug" },
     ];
   },
+  async redirects() {
+    return [
+      // Projects now live on /about; keep old links alive.
+      { source: "/projects", destination: "/about", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

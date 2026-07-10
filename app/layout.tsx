@@ -20,7 +20,10 @@ export const metadata: Metadata = {
     canonical: "/",
     types: {
       "application/rss+xml": [{ url: "/feed.xml", title: `${SITE.name} — RSS` }],
-      "text/plain": [{ url: "/llms.txt", title: "llms.txt" }],
+      "text/plain": [
+        { url: "/llms.txt", title: "llms.txt" },
+        { url: "/resume.md", title: "Resume (Markdown)" },
+      ],
     },
   },
   openGraph: {
