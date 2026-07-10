@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>banner 5:2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 5:2 — 1500×600 (X article / social) */
+  .banner {
+    width: 1500px;
+    height: 600px;
+    background: #0a0a0a;
+    color: #ededed;
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    padding: 48px 56px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 70% at 88% 45%, rgba(0, 104, 214, 0.14), transparent 60%),
+      radial-gradient(ellipse 40% 50% at 10% 90%, rgba(255,255,255,0.03), transparent 50%);
+    pointer-events: none;
+  }
+  .left {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 24px;
+  }
+  .kicker {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8f8f8f;
+  }
+  .title {
+    margin-top: 22px;
+    font-size: 64px;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    color: #fff;
+  }
+  .title .line2 {
+    color: #c4c4c4;
+    font-weight: 650;
+  }
+  .dek {
+    margin-top: 20px;
+    max-width: 560px;
+    font-size: 24px;
+    line-height: 1.4;
+    color: #b5b5b5;
+    font-weight: 450;
+  }
+  .dek strong {
+    color: #fff;
+    font-weight: 650;
+  }
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    color: #a1a1a1;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #0068d6;
+    box-shadow: 0 0 12px rgba(0, 104, 214, 0.7);
+  }
+  .byline span { color: #a1a1a1; }
+  .byline .sep { color: #3a3a3a; margin: 0 2px; }
+
+  /* Right: concept panel */
+  .right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    padding-left: 12px;
+  }
+  .card {
+    border: 1px solid #262626;
+    border-radius: 16px;
+    background: #111;
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+  }
+  .card.ok {
+    border-color: #1a3a5e;
+    background: linear-gradient(90deg, #0d1520 0%, #111 55%);
+  }
+  .card.bad {
+    border-color: #2a2a2a;
+    opacity: 0.95;
+  }
+  .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .card.ok .icon {
+    background: rgba(0, 104, 214, 0.2);
+    color: #52a8ff;
+    border: 1px solid rgba(82, 168, 255, 0.35);
+  }
+  .card.bad .icon {
+    background: #1a1a1a;
+    color: #8f8f8f;
+    border: 1px solid #333;
+  }
+  .card .label {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8f8f8f;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .card .word {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+  .card.bad .word { color: #d0d0d0; }
+  .badge {
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: 0.03em;
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+  .card.ok .badge {
+    background: rgba(0, 104, 214, 0.18);
+    color: #52a8ff;
+  }
+  .card.bad .badge {
+    background: #1c1c1c;
+    color: #a1a1a1;
+    border: 1px solid #2e2e2e;
+  }
+  .chain {
+    margin-top: 4px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    border: 1px dashed #2a2a2a;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 16px;
+    color: #8f8f8f;
+    letter-spacing: 0.03em;
+    text-align: center;
+  }
+  .chain em {
+    font-style: normal;
+    color: #52a8ff;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="banner" id="banner">
+    <div class="left">
+      <div>
+        <div class="kicker">Essay · howard-peng.xyz</div>
+        <h1 class="title">
+          You can check the message.<br />
+          <span class="line2">Not the person.</span>
+        </h1>
+        <p class="dek">
+          After AI, claims get easier to verify.
+          <strong>Identity does not.</strong>
+        </p>
+      </div>
+      <div class="byline">
+        <span class="dot"></span>
+        <span>Howard Peng</span>
+        <span class="sep">·</span>
+        <span>AI · crypto · mechanism design</span>
+      </div>
+    </div>
+    <div class="right">
+      <div class="card ok">
+        <div class="icon">✓</div>
+        <div>
+          <div class="label">Checkable</div>
+          <div class="word">Message</div>
+        </div>
+        <div class="badge">facts · cites · logic</div>
+      </div>
+      <div class="card bad">
+        <div class="icon">?</div>
+        <div>
+          <div class="label">Not checkable</div>
+          <div class="word">Person</div>
+        </div>
+        <div class="badge">who is behind</div>
+      </div>
+      <div class="chain">H → H &nbsp;·&nbsp; H → Net → H &nbsp;·&nbsp; <em>PAAP</em></div>
+    </div>
+  </div>
+</body>
+</html>
