@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Trust chain v2 — hi-dpi</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #fafafa;
+  }
+  body {
+    /* Prefer faces that rasterize cleanly at 2x */
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+      ui-sans-serif, system-ui, sans-serif;
+    color: #171717;
+    /* subpixel on light bg reads sharper for body-size type */
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+    text-rendering: geometricPrecision;
+  }
+  .frame {
+    width: 800px;
+    padding: 44px 40px 36px;
+    background: #fafafa;
+  }
+  .title {
+    font-size: 20px;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+  .sub {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #6b6b6b;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .stages {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.055),
+      0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .row.now {
+    background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 72%);
+    box-shadow:
+      0 0 0 1px rgba(0, 104, 214, 0.16),
+      0 4px 18px rgba(0, 104, 214, 0.07);
+  }
+
+  .stage-id {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9a9a9a;
+    line-height: 1.35;
+  }
+  .row.now .stage-id { color: #0068d6; }
+  .stage-id .n {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: #5c5c5c;
+    margin-top: 3px;
+    text-transform: none;
+    font-weight: 600;
+  }
+  .row.now .stage-id .n { color: #0068d6; }
+
+  .chain {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 48px;
+  }
+
+  .node {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    white-space: nowrap;
+    position: relative;
+  }
+  .node.p {
+    background: #171717;
+    color: #fff;
+    min-width: 68px;
+  }
+  .node.n {
+    background: #e8eef6;
+    color: #244a6b;
+    min-width: 78px;
+    font-weight: 600;
+  }
+  .node.a {
+    background: #0068d6;
+    color: #fff;
+    min-width: 68px;
+  }
+
+  .node .paap {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #555;
+  }
+  .node.a .paap { color: #0068d6; }
+  .node.p .paap { color: #444; }
+
+  .arrow {
+    width: 26px;
+    height: 14px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b5b5b5;
+  }
+  .row.now .arrow { color: #7aaee0; width: 22px; }
+  .arrow svg { display: block; width: 100%; height: 12px; }
+
+  .row.now {
+    padding-bottom: 32px;
+    padding-top: 18px;
+  }
+
+  .foot {
+    margin-top: 26px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+  .foot strong {
+    color: #111;
+    font-weight: 650;
+  }
+</style>
+</head>
+<body>
+  <div class="frame" id="frame">
+    <div class="title">The trust chain stretches</div>
+    <div class="sub">Same ends · longer middle · harder to line up</div>
+
+    <div class="stages">
+      <div class="row">
+        <div class="stage-id">01<span class="n">H → H</span></div>
+        <div class="chain">
+          <div class="node p">Human</div>
+          <div class="arrow"><svg viewBox="0 0 26 12" fill="none"><path d="M1 6h18M16 2l5 4-5 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node p">Human</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="stage-id">02<span class="n">+ Net</span></div>
+        <div class="chain">
+          <div class="node p">Human</div>
+          <div class="arrow"><svg viewBox="0 0 26 12" fill="none"><path d="M1 6h18M16 2l5 4-5 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node n">Internet</div>
+          <div class="arrow"><svg viewBox="0 0 26 12" fill="none"><path d="M1 6h18M16 2l5 4-5 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node p">Human</div>
+        </div>
+      </div>
+
+      <div class="row now">
+        <div class="stage-id">03<span class="n">PAAP · now</span></div>
+        <div class="chain">
+          <div class="node p">Human<span class="paap">P</span></div>
+          <div class="arrow"><svg viewBox="0 0 22 12" fill="none"><path d="M1 6h14M12 2l5 4-5 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node a">Agent<span class="paap">A</span></div>
+          <div class="arrow"><svg viewBox="0 0 22 12" fill="none"><path d="M1 6h14M12 2l5 4-5 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node n">Internet</div>
+          <div class="arrow"><svg viewBox="0 0 22 12" fill="none"><path d="M1 6h14M12 2l5 4-5 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node a">Agent<span class="paap">A</span></div>
+          <div class="arrow"><svg viewBox="0 0 22 12" fill="none"><path d="M1 6h14M12 2l5 4-5 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="node p">Human<span class="paap">P</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      Ends stay human. The middle grows. <strong>You can check the message. Not the person.</strong>
+    </div>
+  </div>
+</body>
+</html>
