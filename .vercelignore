@@ -1,0 +1,7 @@
+# Authoring-only media sources (not referenced by the site at runtime).
+# Keeps the Vercel upload smaller; files remain in git for rebuilds.
+content/media-src/
+
+# Local writing boards / notes
+posts/**/*.board.html
+*.notes.md

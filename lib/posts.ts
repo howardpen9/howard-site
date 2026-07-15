@@ -27,7 +27,7 @@ export type PostMeta = {
   lang?: string;
   source_url?: string;
   captured_at?: string;
-  image?: string; // social/OG banner, e.g. /posts/<slug>/banner.png
+  image?: string; // social/OG banner, e.g. /posts/<slug>/banner.webp
 };
 
 export type Post = PostMeta & {

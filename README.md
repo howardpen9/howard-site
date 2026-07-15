@@ -8,7 +8,10 @@ Howard 的個人網站。內容優先、agent-readable 優先。
 
 ```bash
 pnpm install
-pnpm dev       # http://localhost:3000
+pnpm dev       # http://localhost:3000 — webpack, no source maps, heap cap 512MB
+pnpm dev:turbo # Turbopack (Next default). DO NOT use if RAM is tight — has ballooned to 18GB+
+pnpm dev:clean # wipe .next then pnpm dev
+pnpm preview   # build + start (no HMR; lightest for reading drafts)
 pnpm build     # production build, includes GitHub activity generation
 pnpm lint
 ```
@@ -30,7 +33,9 @@ pnpm lint
 |---|---|
 | 個人名字、bio、email、社群連結、專案 | `lib/config.ts` |
 | 文章 | `posts/<year>/<slug>.mdx` |
-| 文章圖片 | `public/posts/<slug>/...` |
+| 文章圖片 | `public/posts/<slug>/...`（優先 WebP；長緩存見 `next.config.ts`） |
+| 圖片/影片來源草稿（不部署） | `content/media-src/` |
+| 效能 / DNS 備註 | `docs/context/performance.md` |
 | 寫作 voice | `content/writing-voice.md` |
 | 寫作流程 / `/write-blog` / `/補充` 規則 | `content/writing-process.md` |
 | 公開 chat persona | `content/persona/*.md` |

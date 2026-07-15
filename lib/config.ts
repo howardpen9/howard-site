@@ -6,7 +6,7 @@ export const SITE = {
     "Howard Peng — protocol engineer & mechanism designer. Mechanism design, distributed systems, and market microstructure, toward multi-agent cooperation and AI alignment.",
   bio: "Technical Director at a $100M Telegram-ecosystem fund — technical due diligence and portfolio support across stablecoin integrations and opcode-cost optimization. I work at the intersection of mechanism design, distributed systems, and market microstructure, building toward multi-agent cooperation and AI alignment.",
   email: "howard.peng.tw@gmail.com",
-  avatar: "/howard.jpg",
+  avatar: "/howard.webp",
   locale: "en",
 } as const;
 
@@ -83,7 +83,7 @@ export const PROJECTS: Project[] = [
     href: "https://t.me/MemePoseBOT",
     year: "2026",
     status: "building",
-    image: "/projects/memepose.png",
+    image: "/projects/memepose.webp",
     featured: true,
   },
   {
@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     href: "https://x.com/xWatchlist_",
     year: "2026",
     status: "live",
-    image: "/projects/x-watchlist.png",
+    image: "/projects/x-watchlist.webp",
     featured: true,
   },
   {
@@ -103,7 +103,7 @@ export const PROJECTS: Project[] = [
     href: "https://t.me/KaiPanGa_BOT/app",
     year: "2026",
     status: "live",
-    image: "/projects/kaipanga.png",
+    image: "/projects/kaipanga.webp",
     featured: true,
   },
   {

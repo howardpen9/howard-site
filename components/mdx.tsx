@@ -9,8 +9,20 @@ import { LayerCake } from "@/components/layer-cake";
 import { QuadrantChart } from "@/components/quadrant-chart";
 import { Aside } from "@/components/aside";
 import { DataTable } from "@/components/data-table";
+import { MdxImage, MdxVideo } from "@/components/mdx-media";
 
-const components = { Tweet: XEmbed, BarChart, StatCards, LayerCake, QuadrantChart, Aside, DataTable };
+const components = {
+  Tweet: XEmbed,
+  BarChart,
+  StatCards,
+  LayerCake,
+  QuadrantChart,
+  Aside,
+  DataTable,
+  // Markdown ![alt](src) and raw <img>/<video> in MDX → optimized media.
+  img: MdxImage,
+  video: MdxVideo,
+};
 
 const options = {
   // MDX from the local file system is authored content, not user input.
