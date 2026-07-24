@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<!--
+  Howard essay banner template — 5:2 (1500×600)
+  Usage:
+    1. Duplicate this file (or copy banner.html under posts/<slug>/)
+    2. Edit TITLE / DEK / RIGHT visual
+    3. Render:
+       "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+         --headless=new --disable-gpu --hide-scrollbars \
+         --window-size=1500,600 \
+         --screenshot=public/posts/<slug>/banner.jpg \
+         "file://$(pwd)/public/posts/<slug>/banner.html"
+    4. Frontmatter:
+       image: "/posts/<slug>/banner.jpg"
+  Design rules (match attention-vs-value):
+    - bg #0a0a0a, text white / #a1a1a1 muted
+    - kicker: ESSAY · HOWARD-PENG.XYZ
+    - title large, one idea
+    - right side = one diagram / contrast, not decoration
+    - accent #0068d6 / #52a8ff sparingly
+-->
+<title>banner template 5:2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; font-family: ui-sans-serif, system-ui, -apple-system, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  .banner {
+    width: 1500px; height: 600px; background: #0a0a0a; color: #ededed;
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    padding: 56px 64px 52px; position: relative; overflow: hidden;
+  }
+  .banner::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 55% 70% at 88% 45%, rgba(0,104,214,0.12), transparent 60%);
+  }
+  .left { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; padding-right: 24px; }
+  .kicker { font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6f6f; }
+  .title { margin-top: 28px; font-size: 52px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; color: #fff; }
+  .title .muted { color: #a1a1a1; font-weight: 600; }
+  .dek { margin-top: 22px; max-width: 520px; font-size: 20px; line-height: 1.45; color: #a1a1a1; }
+  .dek strong { color: #ededed; font-weight: 600; }
+  .byline { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #8f8f8f; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #0068d6; box-shadow: 0 0 12px rgba(0,104,214,0.7); }
+  .right { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
+  /* Put your concept visual here */
+  .placeholder {
+    width: 100%; max-width: 520px; aspect-ratio: 4/3; border: 1px dashed #333; border-radius: 16px;
+    display: grid; place-items: center; color: #6f6f6f; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="left">
+      <div>
+        <div class="kicker">Essay · howard-peng.xyz</div>
+        <h1 class="title">Title line one.<br /><span class="muted">Title line two.</span></h1>
+        <p class="dek">One-sentence dek. <strong>Bold the punch.</strong></p>
+      </div>
+      <div class="byline">
+        <span class="dot"></span>
+        <span>Howard Peng</span>
+        <span>·</span>
+        <span>AI · crypto · mechanism design</span>
+      </div>
+    </div>
+    <div class="right">
+      <div class="placeholder">concept visual</div>
+    </div>
+  </div>
+</body>
+</html>

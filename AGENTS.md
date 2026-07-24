@@ -14,6 +14,11 @@ drafting or inserting prose.
 
 - New post / thesis work → `/write-blog`
 - ~80% draft + fuzzy add-on idea → `/supplement` or `/補充`
+- North star: preserve spoken intent under pressure; do not polish into AI essay EN
+  (kills X distribution). Required gates: RAW KEEP, STT SUSPECTS, CN GATE,
+  EN pressure+anti-AI, X CUTS — see process Anti-machine gates.
+- Chat writing UX: optional local `posts/<year>/<slug>.board.html` visual spine
+  (template: `content/writing-board-template.html`). Say 看板 / board to request.
 
 Treat Howard's current raw conversation as primary source material. Published posts are
 calibration, not stronger authority than the current raw wording.
@@ -26,3 +31,21 @@ calibration, not stronger authority than the current raw wording.
   `source_url` is stale — do not copy it into promo materials, videos, or
   links). See `docs/context/site-domain.md` for details.
 <!-- END:howard-site-facts -->
+
+<!-- BEGIN:howard-memory -->
+# Situational memory (not published prose)
+
+For who Howard is *right now*, product walls, dogfood decisions, and Gita-style
+agent onboarding, read `docs/context/howard-memory.md` **if the file exists
+locally**.
+
+- **Private:** gitignored. Not on GitHub. Not part of the public site bundle.
+  Mini / second machine: rsync or copy the file; do not commit it.
+- **Do** use it for strategy / onboarding / product context / raw material when
+  curating what might later feed `/ask`.
+- **Do not** treat it as writing-voice or paste its "撞牆" framing into every post.
+  Prose still follows `content/writing-voice.md` + current raw conversation.
+- **Do not** copy it wholesale into `content/persona/` — that folder is the
+  curated public chat corpus for https://howard-peng.xyz/ask. Only ship facts
+  Howard has explicitly approved for the public agent.
+<!-- END:howard-memory -->

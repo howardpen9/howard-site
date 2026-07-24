@@ -1,0 +1,117 @@
+---
+title: "Priced, Not Verified: From Video to World Models, the Market Is the Invariant"
+description: "An engineer's instinct is to kill uncertainty. But one kind of uncertainty, the harder you try to kill it, the more you dismantle your own business — subjective value that only reveals itself in use has no scoring function. Only a market can price it. And the problem only gets heavier as you climb from text to world models."
+date: "2026-06-29"
+tags: ["ai", "markets", "world-models", "video"]
+draft: true
+source_url: "https://howard-peng.xyz/2026/priced-not-verified"
+captured_at: "2026-06-29"
+lang: "en"
+---
+
+An engineer's instinct is to kill uncertainty. See noise, denoise it. See a fuzzy spec, nail it down. See "can't be verified," go build a verifier. Most of the time that instinct is right.
+
+But there's one kind of uncertainty where the harder you try to kill it, the more you're dismantling your own business.
+
+I've spent real money this past while generating video myself. After enough of it, you get a very concrete feeling: these things have gotten real enough that you can't tell them apart. And once you can't tell them apart, a natural question shows up — are we in a multiverse? Is what we see, the footage, even the physical world, actually real?
+
+I'm not going down that road. That's the place science can prove neither true nor false; write all you want, it stays metaphysics. What I want to argue is a problem I can **actually argue**.
+
+## Time breaks local verification
+
+First argument: the dimensionality of video generation is no less than an LLM writing prose — arguably higher. The reason is one word: time.
+
+Start with a technical fact.
+
+What a text model has to keep coherent is a sequence of symbols — sentence after sentence, paragraph after paragraph. You can check it one chunk at a time: is this sentence sound, is this fact right? **Quality is locally verifiable.**
+
+Video can't be — and it's precisely that "can't" that makes it harder, and weightier. What a video model has to keep coherent is symbols **plus time**: does this frame follow from the last one, is the physics of this motion right, does the character still have five fingers ten seconds in? Its coherence demands far more compute than text, because of the extra dimension — you have to check **against both the past and the future at once** to verify that this intent, this stretch of content, came out valid and useful. You can't score a single frame. Whether a clip is good is something you only know after **watching the whole thing**. Quality is global, not local.
+
+That's what the time dimension does: it turns "verifiable chunk by chunk" into "only verifiable once you've watched it all." And "only verifiable once you've watched it all" is one step away from "not verifiable at all."
+
+## Subjective value can only be discovered, not verified
+
+Take that step.
+
+Even if you're willing to watch the whole thing, "is this video good" has no function that can answer it. Sharpness you can measure, coherence you can sort of measure, but *good*, *useful*, *wanted* — that's subjective, and it **only reveals itself in use**: someone has to watch it, share it, build on top of it before the value surfaces.
+
+No verifier can compute that value. Only a market can.
+
+This isn't a metaphor. It's exactly why financial markets exist. What a stock is "worth" has no objective answer — what it's worth depends on subjective but real expectations about the future. So we don't appoint a referee to *verify* its price; we open a market to let it be *discovered*. Price discovery is the one mechanism for handling things that are real but subjective.
+
+Value that is subjective, global, and only revealed in use doesn't need a smarter verifier. It needs a market.
+
+## So "unverifiable" is where you charge
+
+Here's where it turns counterintuitive.
+
+If value can be objectively verified by a function, then sooner or later it gets automated, standardized, and competed down to cost — nobody charges for something with a single right answer. The place you *can* charge is exactly the place with **no objective answer**. Non-verifiability isn't a nuisance to engineer away. It's the reason you get paid.
+
+I worked at an exchange, and I don't gamble. That's the line. A casino is a bet on **meaningless randomness** — the dice outcome is wanted by no one outside the game. A price-discovery market is a bet on **real but subjective value** — the underlying is genuinely wanted outside the game. Both are "betting." One is staked on noise, the other on real value that hasn't been priced yet.
+
+There's one test: **does anyone actually want the underlying outside the game?** Yes → you're running price discovery. No → you're running a casino.
+
+## The ladder: text → video → world models
+
+Video isn't the destination. It's the **cheapest, earliest-visible** rung of this whole class of problem.
+
+Up the ladder are world models. What they have to keep coherent isn't just symbols plus time — it's space, causality, physics, and counterfactuals: "what happens if I push this." Their output isn't even a video; it's a branching tree of possible futures. Every action a user takes, the world has to stay consistent.
+
+<LayerCake
+  axisLabel="more 'reality' to keep coherent"
+  layers={[
+    { tier: "L3", title: "World models", note: "space × time × causality × counterfactuals. Output is a tree of futures, not a clip.", state: "unverifiable", tone: "moat" },
+    { tier: "L2", title: "Video", note: "symbols + time. Only verifiable once watched in full.", state: "hard to verify", tone: "swept" },
+    { tier: "L1", title: "Text", note: "a sequence of symbols. Checkable chunk by chunk.", state: "locally verifiable", tone: "commodity" },
+  ]}
+  caption="One problem, three scales. Each rung up multiplies compute, makes output more expensive, and harder to verify objectively — 'subjective value needs a market, not a verifier' doesn't go away, it gets heavier."
+/>
+
+The key inheritance: each rung up makes the output **more expensive and harder to verify objectively**. So "subjective value has to be priced by a market, not a verifier" doesn't disappear as you climb — it gets *worse*, which makes the need for the market mechanism *stronger*.
+
+Video is the testbed, world models are the prize, and **the market is the one layer that stays invariant across the whole ladder.**
+
+(One honest caveat: don't treat "video can already do 3D, so it *is* world models" as a thing that's already happened. Producing a coherent clip and maintaining a world a user can step into, act inside, and that stays physically consistent are two consistency problems of very different difficulty. World models are where this line is **heading**, and where the market mechanism matters more — not what today's video models already are.)
+
+## A testable probe: continuation depth
+
+This whole line sounds philosophical. But there's one place real data can push on it.
+
+When generation approaches free, does a market that filters by financial commitment **bind** "able to spread" to "actually good" — or let them **split apart**?
+
+- Bind → it's a curation machine: good things get surfaced, surfacing makes them spread, the loop compounds.
+- Split → it's a hype amplifier: what floats up is noise, good work sinks.
+
+How do you measure it? **Continuation depth.**
+
+<Aside term="continuation depth">Does someone **build on a build** — A inspires B, B grows into C. It measures how deep the content's lineage runs. It's purely about the content itself and has nothing to do with blockchains.</Aside>
+
+If the content that spreads widest **also** grows the deepest continuation chains — people genuinely build on it — then spread and quality are bound. If spread stays at the surface while the deep chains form on a quieter, different set of content, they've split. This is one of the few angles where real data can push on a "subjective value" question.
+
+## Keep the two vocabularies apart
+
+The last point is one of discipline.
+
+In everything above, I deliberately used no blockchain words. Because these problems live in a layer that's **substrate-neutral**: generative coherence, time, uncertainty of outcome, subjective value, curation under abundance. None of them need a chain to be described.
+
+Crypto enters at a **different** layer: pricing, escrow, staking, settlement, tokenization — the **resolution** layer.
+
+Keeping the two vocabularies apart isn't fastidiousness. It's that only by keeping them apart does "generative content will eventually meet crypto" become a **claim you can test**, instead of a conclusion smuggled into the words. Describe the problem in chain words and you've already assumed the answer. State the problem neutrally and the answer earns the right to be checked.
+
+So: problem layer, neutral; crypto, kept in the resolution layer, as a testable bet — not a premise hardcoded from the start.
+
+## Wrap
+
+Three things to take away:
+
+**One — non-verifiability isn't a bug, it's pricing power.** Anything a function can verify objectively gets competed down to cost; the place you can charge is exactly the place with no objective answer, only market discovery.
+
+**Two — this problem only grows upward.** Text → video → world models, each rung more expensive and harder to verify, with the market as the one invariant layer. The pricing problem you see in video today is the same one, amplified, that you'll see in world models tomorrow.
+
+**Three — state the problem neutrally.** Don't describe a problem in the words of its solution, or you'll hardcode the answer before you've verified it.
+
+The uncertainty an engineer wants to kill might be exactly what someone else is paying for.
+
+## References
+
+- Related: [Value vs Attention: the 7× inversion on X.com](/2026/attention-vs-value) — the same "look at it as a market" move, applied to attention.

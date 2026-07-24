@@ -45,6 +45,20 @@ next-env.d.ts
 # private author notes (GTM / product strategy — never publish)
 *.notes.md
 
+# private writing memory / voice transcripts — never publish
+content/writing-memory/*.private.md
+
+# situational / product memory for agents only — never public git
+# (prep for /ask + Gita; do NOT ship into content/persona/ either)
+docs/context/howard-memory.md
+
+# local agent skill host links (absolute paths break on other machines)
+.codex/
+.grok/
+
+# write-blog scratch / unshipped fig sources
+.tmp-write-blog-cpu-gpu/
+
 # raw persona sources (PDFs etc.) — only converted .md in content/persona/ ships
 content/persona/src/
 # regenerated on every build by scripts/github-activity.mjs

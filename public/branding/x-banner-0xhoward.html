@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<!--
+  X.com profile banner v2 — mobile-first safe zones
+  Canvas: 1500×500
+
+  Why v1 failed on phone:
+    - Chips + domain sat in bottom-left → covered by avatar (desktop + mobile)
+    - Long dek + right bars → unreadable when mobile crops & UI overlays
+    - Content too low / too spread
+
+  Safe rectangle (put ALL critical copy here):
+    x: 12%–88%   (mobile side crop)
+    y: 12%–52%    (status bar top; avatar + fade bottom ~48%+)
+    Bottom 40% and left-bottom avatar circle: DECORATION ONLY
+
+  Style: howard-peng.xyz dark tokens
+-->
+<title>@0xHoward_Peng X banner v2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .banner {
+    width: 1500px;
+    height: 500px;
+    background: #0a0a0a;
+    color: #ededed;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      /* center glow — pulls eye to safe band */
+      radial-gradient(ellipse 55% 70% at 50% 36%, rgba(0, 104, 214, 0.18), transparent 62%),
+      radial-gradient(ellipse 40% 55% at 78% 30%, rgba(82, 168, 255, 0.08), transparent 55%),
+      linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 35%);
+  }
+  .grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(to right, #fff 1px, transparent 1px),
+      linear-gradient(to bottom, #fff 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 75% 70% at 50% 35%, #000 10%, transparent 72%);
+    pointer-events: none;
+  }
+
+  /* DEBUG overlays — set body.debug .debug-layer { display:block } */
+  .debug-layer { display: none; position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+  body.debug .debug-layer { display: block; }
+  .debug-safe {
+    position: absolute;
+    left: 10%; right: 10%; top: 14%; bottom: 52%;
+    border: 1px dashed rgba(82, 168, 255, 0.55);
+    border-radius: 8px;
+  }
+  .debug-avatar {
+    position: absolute;
+    left: 28px; bottom: -40px;
+    width: 168px; height: 168px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 80, 80, 0.6);
+    background: rgba(255, 80, 80, 0.08);
+  }
+  .debug-label {
+    position: absolute;
+    left: 12%; top: 12%;
+    transform: translateY(-120%);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(82, 168, 255, 0.8);
+    font-family: ui-monospace, monospace;
+  }
+
+  /* —— all real content inside safe band ——
+     Intentionally compact block, vertically centered in upper half
+     so status bar (top) and avatar (bottom-left) never own the message */
+  .safe {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 14%;
+    height: 34%; /* ~ y 14%–48% — clear of avatar & status */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .kicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8f8f8f;
+  }
+  .kicker .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #0068d6;
+    box-shadow: 0 0 14px rgba(0, 104, 214, 0.9);
+    flex-shrink: 0;
+  }
+
+  .title {
+    margin-top: 12px;
+    font-size: 62px;
+    font-weight: 750;
+    letter-spacing: -0.042em;
+    line-height: 1.0;
+    color: #fff;
+  }
+  .title .accent { color: #52a8ff; }
+  .title .muted { color: #c4c4c4; font-weight: 650; }
+
+  /* domain + products — one mono row, still in safe band */
+  .meta {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: #8f8f8f;
+  }
+  .meta .url {
+    color: #52a8ff;
+    font-weight: 600;
+  }
+  .meta .sep { color: #3a3a3a; }
+
+  /* decorative bottom fade — no text */
+  .floor {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.35) 100%);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="grid"></div>
+    <div class="floor"></div>
+
+    <div class="safe">
+      <div class="kicker">
+        <span class="dot"></span>
+        <span>Shipping in public</span>
+      </div>
+      <h1 class="title">
+        Building <span class="accent">MCPs</span><br />
+        <span class="muted">for Grok &amp; agents</span>
+      </h1>
+      <div class="meta">
+        <span class="url">howard-peng.xyz</span>
+        <span class="sep">·</span>
+        <span>grok-mcp</span>
+        <span class="sep">·</span>
+        <span>x-watchlist</span>
+        <span class="sep">·</span>
+        <span>x402</span>
+      </div>
+    </div>
+
+    <div class="debug-layer" aria-hidden="true">
+      <div class="debug-safe"></div>
+      <div class="debug-label">safe zone (mobile + desktop)</div>
+      <div class="debug-avatar"></div>
+    </div>
+  </div>
+</body>
+</html>

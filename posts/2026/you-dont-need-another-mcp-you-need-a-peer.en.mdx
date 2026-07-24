@@ -1,0 +1,164 @@
+---
+title: "You don't need another MCP. You need a peer."
+description: "Claude got official /codex in the terminal. When Grok Build is the main agent, that peer row is still mostly empty. The scarce piece isn't one more tool wrapper — it's calling a second model from the agent that's actually in focus."
+date: "2026-07-13"
+tags: ["agents", "mcp", "coding", "dx", "orca", "xai", "grok"]
+draft: true
+lang: "en"
+image: "/posts/you-dont-need-another-mcp-you-need-a-peer/fig-peer-matrix.webp"
+---
+
+Claude got official peer review inside the terminal.
+
+When **Grok Build is the main agent**, that row is still mostly empty.
+
+Two years ago most people had one coding agent on the machine. Now the default setup is several: Claude Code, Codex, Grok Build, Cursor, Kimi — each logged in, each on a plan, each burning its own quota. That isn't a flex. It's 2026.
+
+And every day the same scene:
+
+You're in agent A. You want a slash **in this window** that pulls agent B in — review a diff, scan an unfamiliar tree, get a second opinion. The way OpenAI's `/codex` works inside Claude.
+
+**You don't need another MCP. You need a peer.**
+
+![Fig 1 — The peer table. Rows are conductors. Columns are peers. Officials filled one edge, not the matrix.](/posts/you-dont-need-another-mcp-you-need-a-peer/fig-peer-matrix.webp)
+*Fig 1 — Change the main agent and the peer row resets.*
+
+## One job. Two components.
+
+When I shipped [grok-mcp](https://github.com/howardpen9/grok-mcp) and [kimi-code-mcp](https://github.com/howardpen9/kimi-code-mcp), the intent was the same job Codex plays for Claude: a **peer**, not another chat tab.
+
+The official Codex plugin for Claude Code ships both halves:
+
+1. **Call surface (UX)** — you type `/codex:review` and don't memorize tool names.  
+2. **Transport** — local Codex CLI / app-server, same login you already have.
+
+My two MCPs shipped half two first — host-agnostic tool sockets:
+
+| Tools | Role | Pain |
+| --- | --- | --- |
+| `kimi_analyze` / `kimi_resume` | cheap long-context **reader** | don't burn the conductor reading fifty files |
+| `grok_review` / `grok_challenge` | cross-model **reviewer / adversary** | don't let one model rubber-stamp itself |
+
+Slash is half one — a host-local shortcut. Claude commands, gstack's `/codex`, the official `/codex:*` plugin: skins over a transport.
+
+So the right reading is not “MCP ≠ slash → two needs.”
+
+It is:
+
+> **Peer = transport + call surface.**  
+> Official Codex shipped both. I made the transport reusable as MCP. The call surface (`/grok`, `/kimi`, and now Grok-side `/codex-*`) is skin each host still has to grow.
+
+A two-column table is fine for *components*. It misleads if you read it as two product categories. I misled myself that way once in a comparison doc. Intent was never the split.
+
+## Do you actually need this on the machine?
+
+Three answers. Don't paste them into one monorepo.
+
+### 1. Stage (ADE)
+
+[Orca](https://onorca.dev/) and peers solve **parallel work, isolation, dispatch, reviewing diffs**. Each agent in its own git worktree.
+
+That is not peer-in-window. That is **colleagues in adjacent seats**.
+
+- Long work, real parallelism, two implementations to compare → new worktree.  
+- Short second opinion, cheap bulk read → stay put and call a peer.
+
+If you already have a stage, don't build another ADE.
+
+### 2. Peer tools
+
+If you pay two coding plans, peer is not polish:
+
+- **Confirmation bias** — same-model self-review is a structural failure mode.  
+- **Cost curve** — bulk reading to a long-context cheap model.  
+- **Shape of skill** — some models scan, some hunt races, some close architecture.
+
+You do **not** need another MCP registry. You need: from the agent that is currently the conductor, a reliable peer call.
+
+Claude-as-main already has product-grade `/codex`.  
+**Grok-as-main** — where I sit now — flips the table. That official edge does not transfer. What you want is `/codex` and `/kimi` **inside the Grok window**. That side of the market is thin.
+
+### 3. Universal monorepo / one-click every MCP
+
+Crowded. Rot-prone. If success is only “they can call each other,” two published packages plus an official plugin already clear the bar for many people.
+
+**You need the contract, not the repo shape.**
+
+![Fig 2 — Side-by-side vs in-window peer. Both real. Different equations.](/posts/you-dont-need-another-mcp-you-need-a-peer/fig-side-by-side-vs-peer.webp)
+*Fig 2 — Changing windows is not changing slashes.*
+
+## The pain that survives is the matrix after the main agent changes
+
+```text
+              → Codex    Claude    Grok     Kimi
+Claude main      ✅ off.  —         △ MCP    △ MCP
+Grok main        △/∅     △/∅       —        △/∅
+Codex main       —       △          △        △
+```
+
+Officials filled one edge: Claude calls Codex.  
+Nobody filled “any conductor calls any peer.”
+
+Orca **side-steps** the matrix with side-by-side panes — real, useful, and a different UX.
+
+So the intent — call B from A like `/codex` — is **not a solved fake problem**. One edge is solved. Change the main agent and the sugar is gone.
+
+## What I'm dogfooding
+
+A Grok Build plugin: **grok-peer**.
+
+| Slash | What it does |
+| --- | --- |
+| `/peer-setup` | Are Codex / Kimi on this machine and ready? |
+| `/codex-review` | Local `codex review` (uncommitted or `--base`) |
+| `/codex-adversarial` | Challenge design, races, security |
+| `/kimi-analyze` | Local Kimi bulk analysis of cwd (default: summary) |
+
+Your logins. No second-subscription theater.
+
+Path: `coding-agent-mcps/plugins/grok-peer` (public timing follows dogfood; local first).
+
+![Fig 3 — Concept: Grok as conductor, Codex as read-only peer on the same machine.](/posts/you-dont-need-another-mcp-you-need-a-peer/fig-terminal-codex-review.webp)
+*Fig 3 — Same machine. Your login. Different model.*
+
+## Five layers, short enough to keep
+
+| Layer | What | Examples |
+| --- | --- | --- |
+| 0 Human | gates: push / merge / money | you |
+| 1 Stage | parallel, worktrees, bus | Orca |
+| 2 Actors | CLI agents that edit code | Claude / Codex / Grok / Kimi |
+| 3 Peer | transport + optional slash skin | MCP · `/codex` · `/kimi-analyze` |
+| 4 Script | who drives, where handoff lives | worklog |
+
+One line:
+
+**Orca is the stage. Claude/Grok/Codex are the actors. MCP/slash are specialists in the same room. Markdown is the script.**
+
+## A decision tree people might actually use
+
+```text
+Lots of files / real parallel / multi-repo?
+  └─ yes → stage: new worktree + dedicated agent
+  └─ no  → only second opinion or bulk scan?
+        └─ yes → peer: /codex-* or kimi tools
+        └─ no  → finish in current agent + write the worklog
+```
+
+## The barbed line
+
+People who ship MCP think the socket is the product.  
+People who use `/codex` think the slash is the product.
+
+Both incomplete.
+
+**A peer product is: on the right conductor, at the right cost, reach a second model of the right shape — short enough that you actually invoke it every day.**
+
+"Multi-agent" is a crowded slogan.  
+The empty cell is: **when the main agent changes, does the peer table still exist?**
+
+That table is the problem a lot of people will keep hitting.
+
+---
+
+*Aside: I also map public X behavior of technical cohorts — xAI was the proof case (xWatchlist). In that follow graph, company channels tend to outrank celebrity cosplay. So “tag the founder for luck” is not a product strategy. Build for people who ship.*

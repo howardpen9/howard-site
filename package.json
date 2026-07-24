@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--max-old-space-size=512' next dev --webpack --disable-source-maps",
+    "dev:turbo": "next dev --turbopack",
+    "dev:clean": "rm -rf .next && pnpm dev",
+    "preview": "pnpm build && NODE_OPTIONS='--max-old-space-size=512' next start",
     "build": "node scripts/github-activity.mjs && next build",
     "start": "next start",
     "lint": "eslint"

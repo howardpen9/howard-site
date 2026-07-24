@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BOARD — {{slug}}</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #171a21;
+      --line: #2a3140;
+      --text: #e8eaed;
+      --muted: #9aa3b2;
+      --accent: #7cb3ff;
+      --warn: #f0b429;
+      --ok: #3dd68c;
+      --chip: #232936;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 4px; font-weight: 650; }
+    .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .thesis {
+      grid-column: 1 / -1;
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .thesis .lock {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--warn);
+      font-weight: 500;
+    }
+    ul { margin: 0; padding-left: 1.1rem; }
+    li { margin: 0.35rem 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--chip);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      max-width: 100%;
+    }
+    .chip.raw { border-color: #3d4f73; }
+    .chip.stt { border-color: #6b5420; color: var(--warn); }
+    .beat { border-left: 3px solid var(--accent); padding-left: 10px; margin: 8px 0; }
+    .beat b { color: var(--accent); font-weight: 600; }
+    .pressure { color: var(--ok); font-weight: 600; }
+    footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <!--
+    Local working board only. Not published (site loads .mdx only).
+    Path: posts/<YYYY>/<slug>.board.html
+    Copy this template; replace {{…}} and list items.
+  -->
+  <h1>{{title}}</h1>
+  <div class="meta">
+    slug: <code>{{slug}}</code> ·
+    status: {{status}} ·
+    lang: zh → en twin
+  </div>
+
+  <div class="grid">
+    <section class="card thesis">
+      <h2>Thesis (locked)</h2>
+      <div>{{thesis}}</div>
+      <div class="lock">不准軟化：{{do_not_soften}}</div>
+    </section>
+
+    <section class="card">
+      <h2>Reader + open</h2>
+      <ul>
+        <li><b>讀者</b>：{{reader}}</li>
+        <li><b>開場</b>：{{opening}}</li>
+        <li><b>結尾壓力</b>：<span class="pressure">{{ending_pressure}}</span></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Beats (3–5)</h2>
+      <!-- one .beat per section -->
+      <div class="beat"><b>1</b> {{beat_1}}</div>
+      <div class="beat"><b>2</b> {{beat_2}}</div>
+      <div class="beat"><b>3</b> {{beat_3}}</div>
+    </section>
+
+    <section class="card">
+      <h2>RAW KEEP</h2>
+      <div class="chips">
+        <span class="chip raw">{{raw_1}}</span>
+        <span class="chip raw">{{raw_2}}</span>
+        <span class="chip raw">{{raw_3}}</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>STT suspects</h2>
+      <div class="chips">
+        <span class="chip stt">[STT?] {{stt_1}}</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Anchors</h2>
+      <ul>
+        <li>{{anchor_1}}</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>X CUTS (EN candidates)</h2>
+      <ul>
+        <li>{{xcut_1}}</li>
+        <li>{{xcut_2}}</li>
+        <li>{{xcut_3}}</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    Working artifact for chat writing · see content/writing-process.md (Visual board) ·
+    delete or ignore at publish
+  </footer>
+</body>
+</html>

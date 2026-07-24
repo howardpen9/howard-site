@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BOARD — Intent Burns Tokens</title>
+  <style>
+    :root {
+      --bg: #0f1115; --card: #171a21; --line: #2a3140; --text: #e8eaed;
+      --muted: #9aa3b2; --accent: #7cb3ff; --warn: #f0b429; --ok: #3dd68c; --chip: #232936;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font: 15px/1.5 ui-sans-serif, system-ui, sans-serif;
+      background: var(--bg); color: var(--text); padding: 24px; max-width: 920px;
+    }
+    h1 { font-size: 1.4rem; margin: 0 0 6px; font-weight: 700; letter-spacing: -0.02em; }
+    .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 18px; }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
+    }
+    .card h2 {
+      margin: 0 0 10px; font-size: 0.7rem; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--muted); font-weight: 600;
+    }
+    .title-en { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .one-liner { font-size: 1.08rem; font-weight: 600; line-height: 1.5; }
+    .eq {
+      margin: 14px 0 0; padding: 12px 14px; border-radius: 8px;
+      background: #12151c; border: 1px solid var(--line); font-size: 0.95rem;
+    }
+    .eq strong { color: var(--ok); }
+    .lock { margin-top: 12px; color: var(--warn); font-weight: 600; font-size: 0.9rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--chip); border: 1px solid #3d4f73; border-radius: 999px;
+      padding: 5px 11px; font-size: 0.82rem;
+    }
+    .chip.core { border-color: var(--ok); color: var(--ok); font-weight: 600; }
+    .beat { border-left: 3px solid var(--accent); padding-left: 10px; margin: 8px 0; }
+    .beat b { color: var(--accent); }
+    ul { margin: 0; padding-left: 1.15rem; }
+    li { margin: 0.4rem 0; }
+    .muted { color: var(--muted); font-size: 0.88rem; }
+    footer { margin-top: 14px; color: var(--muted); font-size: 0.78rem; }
+    code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>Intent Burns Tokens</h1>
+  <div class="meta">
+    slug: <code>intent-burns-tokens</code> ·
+    re-locked 2026-07-14 · 商業工具 = 幫人燒更多 tokens = 抓更多 user intent
+  </div>
+
+  <section class="card">
+    <h2>一句話重點（現在）</h2>
+    <div class="title-en">Intent Burns Tokens</div>
+    <div class="one-liner">
+      現在做的所有事情、所有這類商業工具，都應當圍繞在：
+      <strong>怎麼幫助大家消耗更多 tokens</strong>。
+    </div>
+    <div class="eq">
+      也就是：抓到更多「用戶的意圖」(<strong>intent</strong>)<br />
+      <strong>多燒 tokens ⇄ 抓到更多 intent</strong> —— 同一件事的兩面，不是兩條線。
+    </div>
+    <div class="lock">
+      不准拆成「一邊抓意圖、一邊順便討論 token 帳單」。<br />
+      商業價值敘事 = 幫用戶把 intent 用掉（執行掉）→ 帳單上的 tokens 是那條路的計量。
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>和上一句怎麼接</h2>
+    <p class="muted" style="margin:0 0 8px">
+      仍成立、當同義展開，不是另一篇：
+    </p>
+    <div class="chips">
+      <span class="chip core">意圖抓得更細 → 為此消耗更多 tokens</span>
+      <span class="chip">所有 AI 工具本質上在做這件事</span>
+    </div>
+    <p class="muted" style="margin:10px 0 0">
+      這次你補的重點是<strong>商業準星</strong>：工具該不該存在 / 好不好，先看它有沒有在幫人多消耗 tokens（= 有沒有抓到更多 intent），不是看它宣不宣稱省錢。
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Beats（仍極簡）</h2>
+    <div class="beat"><b>1</b> 一句話：商業 AI 工具 = 幫人燒更多 tokens</div>
+    <div class="beat"><b>2</b> 為什麼等價於「抓更多 user intent」（執行念想，不是存書籤）</div>
+    <div class="beat"><b>3</b> 所以怎麼看產品：誰在放大 intent→token，誰在假裝省 token 是主業</div>
+  </section>
+
+  <section class="card">
+    <h2>例證（可砍，只服務主軸）</h2>
+    <ul>
+      <li>Orca / IDE·ADE — 把「想做完」拆細並執行 → 多 agent 多 token</li>
+      <li>OpenRouter rankings — 用量榜 = 誰在幫人燒</li>
+      <li>Higgsfield / 影像 — 視覺意圖落地 = 大量 gen tokens</li>
+      <li>thinner harnesses — 控制變薄、意圖更直接進模型 → 燒在模型裡</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>RAW KEEP</h2>
+    <div class="chips">
+      <span class="chip core">幫助大家消耗更多 tokens</span>
+      <span class="chip core">抓到更多用戶的意圖 (intent)</span>
+      <span class="chip">所有商業工具都應當圍繞這件事</span>
+      <span class="chip">意圖抓得更細，然後為此消耗更多的 tokens</span>
+    </div>
+  </section>
+
+  <footer>
+    Board only · 未寫 MDX · 說「寫」或再改半句核心再開稿
+  </footer>
+</body>
+</html>

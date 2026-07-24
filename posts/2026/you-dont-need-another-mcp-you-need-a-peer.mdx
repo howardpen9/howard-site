@@ -1,0 +1,162 @@
+---
+title: "你缺的不是又一個 MCP，是 peer"
+description: "Claude 終端裡有了官方 /codex。Grok 當主軸時，那一列 peer 大多是空的。稀缺的不是再包一層工具，是在你真正開著的那個 agent 裡，穩定叫到第二個模型。"
+date: "2026-07-13"
+tags: ["agents", "mcp", "coding", "dx", "orca", "xai", "grok"]
+draft: true
+lang: "zh"
+image: "/posts/you-dont-need-another-mcp-you-need-a-peer/fig-peer-matrix.webp"
+---
+
+Claude 的終端裡，已經有官方的 peer review。
+
+Grok Build 當**主軸**的時候，那一列大多還是空的。
+
+兩年前，多數人的本機只有一個 coding agent。現在同一台機器上 Claude Code、Codex、Grok Build、Cursor、Kimi 並存——各自登入、各自訂閱、各自燒額度。這不是 geek 炫技。這是 2026 的預設配置。
+
+然後每天撞同一場景：你開著 A，想在**當前窗**打一個斜線，叫 B 進來——審 diff、掃陌生 codebase、給第二意見。像 OpenAI 給 Claude 做的 `/codex`。
+
+**稀缺的不是又一個 MCP。是 peer。**
+
+![Fig 1 — peer 表：主軸一換，列就重置。Claude 主軸有官方 Codex；Grok 主軸那一列仍薄。](/posts/you-dont-need-another-mcp-you-need-a-peer/fig-peer-matrix.webp)
+*Fig 1 — 列是主軸，欄是 peer。官方做滿的是一條邊，不是整張表。*
+
+## 意圖同一個，組件兩個
+
+我當初寫 [grok-mcp](https://github.com/howardpen9/grok-mcp) 和 [kimi-code-mcp](https://github.com/howardpen9/kimi-code-mcp)，意圖就是這個：讓 Grok / Kimi 在 Claude 裡扮演跟 Codex **同一類角色**——peer，不是聊天室裡的另一個 bot。
+
+官方 Codex plugin for Claude Code 做的是一整包：
+
+1. **呼叫面（UX）**——你打 `/codex:review`，不用背工具名。  
+2. **通道（transport）**——底下走本機 Codex CLI / app-server，用你已經登入的那個 Codex。
+
+我的兩個 MCP 先做的是第 2 層：可被任何 MCP host 掛上的工具插座。
+
+| 工具 | 角色 | 對齊的痛 |
+| --- | --- | --- |
+| `kimi_analyze` / `kimi_resume` | 便宜長上下文 **reader** | 別讓 conductor 自己讀 50 個檔燒 token |
+| `grok_review` / `grok_challenge` | 異模型 **reviewer / adversary** | 別讓同一模型自我確認 |
+
+Slash 是第 1 層：某一個 host 內部的快捷指令。Claude commands、gstack 的 `/codex`、官方 plugin 的 `/codex:*`，都是把第 2 層長成手感。
+
+正確讀法不是「MCP ≠ slash，兩種需求」。
+
+正確讀法是：
+
+> **Peer = 通道 + 呼叫面。**  
+> 官方一次出齊。我先把通道做成可複用的 MCP；呼叫面是各 host 要各自長的皮。
+
+表上拆兩欄，是在拆**組件**。若讀成兩個產品定位，那是文件寫歪了——包括我自己中間也寫歪過一次。
+
+## 本機到底需不需要？
+
+分三層答。不要用一個 monorepo 把三層糊在一起。
+
+### 1. 舞台（ADE）
+
+[Orca](https://onorca.dev/) 這類環境解的是另一個問題：並行、隔離、派工、審 diff。多個 agent 各開 git worktree，互不踩檔。
+
+這不是 peer。這是**並排的同事**。
+
+- 長任務、真並行、要比兩個實作 → 新 worktree。  
+- 短第二意見、省 token 掃庫 → 留在當前窗打 peer。
+
+舞台有了，就不要再發明一個 ADE。
+
+### 2. Peer
+
+只要你本機同時付兩家以上的 coding 訂閱，peer 就不是錦上添花：
+
+- **確認偏差**——同一模型自審，結構上容易給自己過。  
+- **成本曲線**——bulk 讀碼丟給長上下文便宜模型。  
+- **能力形狀**——有的模型適合掃，有的適合挑 race，有的適合收斂架構。
+
+你不需要再一個 MCP 註冊表。你需要的是：在**當前主軸**裡，穩定叫得出 peer。
+
+Claude 當主軸：官方 `/codex` 已是一等公民。  
+**Grok Build 當主軸**——包括我現在——表翻過來了。Claude→Codex 那條邊的甜頭用不上。你要的是 Grok 窗裡的 `/codex`、`/kimi`，或等價呼叫。市場在這邊明顯比較薄。
+
+### 3. 通用 monorepo / 一鍵裝所有 MCP
+
+紅海，腐壞快。成功定義若只是「裝完能互相呼叫」，兩個獨立 package + 官方 plugin 往往就夠了。
+
+**需要的是契約，不是倉庫形狀。**
+
+![Fig 2 — 並排 vs 同窗 peer：兩者都真，方程不同。](/posts/you-dont-need-another-mcp-you-need-a-peer/fig-side-by-side-vs-peer.webp)
+*Fig 2 — 換窗 ≠ 換斜線。*
+
+## 主軸一換，表就重置
+
+```text
+              → Codex    Claude    Grok     Kimi
+Claude 主軸      ✅官      —         △MCP     △MCP
+Grok 主軸        △/空     △/空      —        △/空
+Codex 主軸       —         △         △        △
+```
+
+官方把「Claude 裡叫 Codex」做滿了。  
+沒人把「任意主軸裡叫任意 peer」做滿。
+
+Orca 用並排繞過這張表——有效，但是另一種 UX：你換的是窗，不是斜線。
+
+所以「在 A 裡像 `/codex` 一樣叫 B」**不是已經被解決的假問題**。被解決的是一條邊。主軸從 Claude 換成 Grok，那條邊的甜頭就沒了。
+
+## 我在 dogfood 的呼叫面
+
+Grok Build plugin：**grok-peer**。
+
+| Slash | 做什麼 |
+| --- | --- |
+| `/peer-setup` | 本機 Codex / Kimi 是否就緒 |
+| `/codex-review` | 本機 `codex review`（uncommitted 或 `--base`） |
+| `/codex-adversarial` | 對抗式 peer review |
+| `/kimi-analyze` | 本機 Kimi 掃 cwd（預設 summary） |
+
+用你已經登入的 CLI。不是再開一個訂閱劇場。
+
+路徑：本機 monorepo `coding-agent-mcps/plugins/grok-peer`（公開倉庫隨發布節奏；先自用一週）。
+
+![Fig 3 — 概念示意：在 Grok 裡叫本機 Codex 做 read-only review。](/posts/you-dont-need-another-mcp-you-need-a-peer/fig-terminal-codex-review.webp)
+*Fig 3 — Conductor 是 Grok；peer 是 Codex；同一台機器、你的 login。*
+
+## 五層（夠用就好）
+
+| 層 | 是什麼 | 例子 |
+| --- | --- | --- |
+| 0 人 | gate：push / merge / 錢 | 你 |
+| 1 舞台 | 並行、worktree、編排 | Orca |
+| 2 演員 | 真正寫碼的 CLI agent | Claude / Codex / Grok / Kimi |
+| 3 peer | 通道 +（可選）slash 皮 | MCP · `/codex` · `/kimi-analyze` |
+| 4 劇本 | 誰 driver、完成寫哪 | worklog |
+
+口訣：
+
+**Orca 是舞台。Claude/Grok/Codex 是演員。MCP/slash 是同場專家。markdown 是劇本。**
+
+## 決策樹
+
+```text
+要改很多檔 / 真並行 / 跨 repo？
+  └─ 是 → 舞台：新 worktree + 專屬 agent
+  └─ 否 → 只要第二意見或掃庫？
+        └─ 是 → peer：/codex-* 或 kimi 工具
+        └─ 否 → 當前 agent 做完 + 寫 worklog
+```
+
+## 帶刺的一句
+
+寫 MCP 的人以為 socket 就是產品。用 `/codex` 的人以為斜線就是產品。兩邊都不完整。
+
+**Peer 的產品是：在正確的主軸上，用正確的成本，叫到正確形狀的第二個模型——而且短到你願意每天用。**
+
+市場上「多 agent」四個字太擠。擠的是口號。
+
+空的是：
+
+**主軸一換，peer 表還在不在。**
+
+那張表，才是大家會一直碰到的問題。
+
+---
+
+*另：我用公開 X 行為畫過 xAI cohort 的地圖（xWatchlist 的證明案例）。群體 follow 結構裡，公司頻道往往壓過 celebrity cosplay——所以我不會把「tag 創辦人求轉發」當成產品策略。做給真的用 Grok 寫 code 的人。*

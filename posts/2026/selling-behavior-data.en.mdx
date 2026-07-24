@@ -1,0 +1,60 @@
+---
+title: "Nobody's looking for a dashboard — they're looking for these three things"
+description: "I spent months turning xAI employees' public behavior into a dashboard. Then it clicked: nobody pays for a dashboard. What they pay for is three completely different things."
+date: "2026-07-02"
+tags: ["builder", "data", "monetization"]
+draft: true
+lang: "en"
+---
+
+I spent months turning the public behavior of 463 xAI employees into a dashboard.
+
+Then I tried to sell it. And I found out I had one thing wrong: nobody is looking for a dashboard that tracks behavior on X. They are looking for the answer to something that already hurts. That gap changed how I understand what behavioral data actually sells.
+
+---
+
+## One: they pay to see clearly before a decision
+
+When a recruiter asks me to "run a report," it is not because he wants a data tool. It is because he is reaching out to someone next week and wants to know first: is this person a pure lurker, or does he actually talk? Which way does his network lean? Is there any opening for a cold outreach?
+
+He is not buying a dashboard. He is buying one fewer wasted, wrong outreach.
+
+Same with a VC. He is looking at a twenty-person startup and wants to know whether the core engineers have any presence on X, whether they are discussing the technical direction in public — or whether it is just the founder doing all the talking. That question is worth a few thousand dollars, because a few-million-dollar decision is sitting right behind it.
+
+**Behavioral data is valuable not because it is interesting in itself — but because it lowers the uncertainty on an expensive decision behind it.**
+
+---
+
+## Two: they pay for history they can't get back
+
+I did not think this one through at first.
+
+My tracker runs every day. A year in, I have a time series nobody can reconstruct: who went quiet and when, whose activity spiked right after some event, who quietly changed their handle. These signals are not static. They only exist in the fetch you ran at the right moment.
+
+Someone could copy my code today — and still have to wait a year to hold the year of data I already have.
+
+Plenty of tools are easy to clone. Starting to accumulate at the right moment is not. The moat is not the algorithm; it is the time series.
+
+---
+
+## Three: they pay for signals they can hand straight to an agent
+
+This is the most recent shift, and the direction I now think is most worth betting on.
+
+Once AI agents become a real part of the workflow, the **form** of the data starts to matter. I expose the cohort's behavioral data through MCP — a recruiter's agent can just ask "has this person discussed anything infra-related in public over the last three months," get the answer, and never scroll a timeline, filter, or hand-sort anything.
+
+Whether an agent can call it is starting to decide whether a dataset can graft into someone else's workflow. This is not a tech demo; it is a change in the use case: data is no longer something you go look up, it is something you tell an agent to go get.
+
+---
+
+It took me months to get it: nobody ever pays because they found an interesting new tool — they pay because they already have a painful decision to make, because the history they can't get back makes them anxious, or because they are trying to let an agent do the analysis and have no callable data in hand.
+
+The dashboard is just the container. What sells is the pain the logic inside it connects to.
+
+If you are building some kind of niche behavior tracker — or any product that turns public data into insight — these three points are probably worth working out before your feature list. (My own dashboard is [here](https://x-watchlist.up.railway.app) — the xAI one is free and open.)
+
+---
+
+**The barbed line:**
+
+If your user says "interesting" but never asks the price, you are not yet in any of these three.
