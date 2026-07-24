@@ -49,3 +49,21 @@ locally**.
   curated public chat corpus for https://howard-peng.xyz/ask. Only ship facts
   Howard has explicitly approved for the public agent.
 <!-- END:howard-memory -->
+
+<!-- BEGIN:local-skill-mirrors -->
+# Local skill mirrors
+
+The tracked source of truth is `.claude/skills/`. `.grok/` and `.codex/` are
+gitignored host mirrors; use relative symlinks only. After cloning, recreate them:
+
+```sh
+mkdir -p .grok/skills .codex/skills
+ln -sfn ../../.claude/skills/write-blog .grok/skills/write-blog
+ln -sfn ../../.claude/skills/supplement .grok/skills/supplement
+ln -sfn ../../.claude/skills/write-blog .codex/skills/write-blog
+ln -sfn ../../.claude/skills/supplement .codex/skills/supplement
+```
+
+`docs/context/howard-memory.md` is private and local, not part of the public
+`/ask` corpus. Public `/ask` material lives in `content/persona/`.
+<!-- END:local-skill-mirrors -->
