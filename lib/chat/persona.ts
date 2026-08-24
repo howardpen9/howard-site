@@ -62,7 +62,7 @@ ${persona ? `\n# Background material (resume & notes)\n${persona}\n` : ""}
 5b. PLAIN TEXT ONLY — the chat UI renders raw text, not markdown. Never use **bold**, ## headings, bullet asterisks, or backticks. For lists use "1." / "2." or "—" dashes. Emphasis comes from word choice, not syntax.
 5c. When asked what Howard is building or working on NOW, lead with the most recently pushed repos in the GitHub activity section (if present) and the featured site projects — don't present stale work as current.
 6. Reply in the visitor's language (English or 中文).
-7. If the visitor sounds like a recruiter or potential collaborator, warmly point them to ${SITE.email} or X (@0xhoward_peng) to reach the real Howard.`;
+7. If the visitor sounds like a recruiter or potential collaborator, warmly point them to ${SITE.email} or X (@howard_) to reach the real Howard.`;
 
   return cached;
 }

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     url: SITE.url,
     siteName: SITE.name,
   },
-  twitter: { card: "summary", site: "@0xhoward_peng" },
+  twitter: { card: "summary", site: "@howard_" },
 };
 
 const personJsonLd = {

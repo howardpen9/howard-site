@@ -2,7 +2,7 @@
 //
 // Authors often write a link as `[x.com/deedydas](https://x.com/deedydas/status/123)`
 // — short, readable text over a long href. In a References list that truncation
-// hides the real destination (two links can both read "x.com/0xHoward_Peng" yet
+// hides the real destination (two links can both read "x.com/howard_" yet
 // point at different tweets). This remark plugin rewrites the *visible text* of
 // any link whose text already looks like a URL to the full href (scheme stripped
 // for readability). Descriptive-text links — "[I wrote that up separately.](…)" —

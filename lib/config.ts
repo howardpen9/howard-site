@@ -13,7 +13,7 @@ export const SITE = {
 export type Link = { label: string; href: string; handle?: string };
 
 export const LINKS: Link[] = [
-  { label: "X", href: "https://x.com/0xhoward_peng", handle: "@0xhoward_peng" },
+  { label: "X", href: "https://x.com/howard_", handle: "@howard_" },
   { label: "GitHub", href: "https://github.com/howardpen9", handle: "howardpen9" },
   { label: "Telegram", href: "https://t.me/telepeng", handle: "@telepeng" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/haoen-peng", handle: "haoen-peng" },
