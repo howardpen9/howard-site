@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       images: banner ? [{ url: banner, width: 1200, height: 675, alt: post.title }] : undefined,
     },
     twitter: banner
-      ? { card: "summary_large_image", images: [banner], site: "@0xhoward_peng" }
+      ? { card: "summary_large_image", images: [banner], site: "@howard_" }
       : undefined,
   };
 }

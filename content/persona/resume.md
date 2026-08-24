@@ -1,6 +1,6 @@
 # Howard Peng — Resume (merged from role-specific versions, 2026-07)
 
-Contact: howard.peng.tw@gmail.com · github.com/howardpen9 · linkedin.com/in/haoen-peng · X @0xhoward_peng
+Contact: howard.peng.tw@gmail.com · github.com/howardpen9 · linkedin.com/in/haoen-peng · X @howard_
 Bilingual Mandarin/English. Open to relocation (incl. San Francisco, on-site).
 
 ## Positioning
