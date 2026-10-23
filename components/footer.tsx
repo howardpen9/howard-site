@@ -7,6 +7,9 @@ import { LINKS } from "@/lib/config";
 // carries its own tag footer, so we don't re-show the social links there.
 const isArticle = (pathname: string) => /^\/\d{4}\/[^/]+$/.test(pathname);
 
+// Short row: X, Threads, and GitHub. About lists every profile.
+const FOOTER_LABELS = ["X", "Threads", "GitHub"];
+
 export function Footer() {
   const article = isArticle(usePathname() ?? "");
 
@@ -14,7 +17,10 @@ export function Footer() {
     <footer className="mt-24 border-t py-8 text-sm text-muted">
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
         {!article &&
-          LINKS.slice(0, 2).map((link) => (
+          FOOTER_LABELS.flatMap((label) => {
+            const link = LINKS.find((item) => item.label === label);
+            return link ? [link] : [];
+          }).map((link) => (
             <a
               key={link.href}
               href={link.href}

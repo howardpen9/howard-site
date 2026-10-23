@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { JsonLd } from "@/components/json-ld";
-import { SITE, LINKS } from "@/lib/config";
+import { SITE, LINKS, X_PROFILE } from "@/lib/config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     url: SITE.url,
     siteName: SITE.name,
   },
-  twitter: { card: "summary", site: "@howard_" },
+  twitter: { card: "summary_large_image", site: X_PROFILE.handle, creator: X_PROFILE.handle },
 };
 
 const personJsonLd = {

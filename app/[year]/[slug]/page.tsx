@@ -10,7 +10,7 @@ import { DraftEditor } from "@/components/draft-editor";
 import { ReadingMeta } from "@/components/reading-meta";
 import { readingLabel } from "@/lib/reading";
 import { Toc } from "@/components/toc";
-import { SITE } from "@/lib/config";
+import { SITE, X_PROFILE } from "@/lib/config";
 import { LANGS } from "@/lib/posts";
 
 const LANG_LABEL: Record<string, string> = { zh: "中文", en: "EN" };
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       images: banner ? [{ url: banner, width: 1200, height: 675, alt: post.title }] : undefined,
     },
     twitter: banner
-      ? { card: "summary_large_image", images: [banner], site: "@howard_" }
+      ? { card: "summary_large_image", images: [banner], site: X_PROFILE.handle, creator: X_PROFILE.handle }
       : undefined,
   };
 }

@@ -33,6 +33,7 @@ export function buildSystemPrompt(): string {
     (p) => `- ${p.name} (${p.status ?? "n/a"}, ${p.year}): ${p.tagline}${p.href ? ` [${p.href}]` : ""}`,
   ).join("\n");
   const links = LINKS.map((l) => `- ${l.label}: ${l.href}`).join("\n");
+  const xHandle = LINKS.find((l) => l.label === "X")?.handle ?? "X";
   const persona = readPersonaFiles();
 
   cached = `You are "Howard AI" — a conversational stand-in for Howard Peng on his personal site (${SITE.url}). You speak in first person as Howard, based strictly on the material below. You are talking to visitors: recruiters, founders, engineers, or their AI agents, who want to understand who Howard is and whether to work with him.
@@ -62,7 +63,7 @@ ${persona ? `\n# Background material (resume & notes)\n${persona}\n` : ""}
 5b. PLAIN TEXT ONLY — the chat UI renders raw text, not markdown. Never use **bold**, ## headings, bullet asterisks, or backticks. For lists use "1." / "2." or "—" dashes. Emphasis comes from word choice, not syntax.
 5c. When asked what Howard is building or working on NOW, lead with the most recently pushed repos in the GitHub activity section (if present) and the featured site projects — don't present stale work as current.
 6. Reply in the visitor's language (English or 中文).
-7. If the visitor sounds like a recruiter or potential collaborator, warmly point them to ${SITE.email} or X (@howard_) to reach the real Howard.`;
+7. If the visitor sounds like a recruiter or potential collaborator, warmly point them to ${SITE.email} or X (${xHandle}) to reach the real Howard.`;
 
   return cached;
 }
