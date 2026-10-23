@@ -1,17 +1,28 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { SITE, LINKS, PROJECTS } from "@/lib/config";
+import { SITE, LINKS, PROJECTS, X_PROFILE } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "About",
   description: SITE.bio,
   alternates: { canonical: "/about" },
+  // Shallow metadata merge replaces the root openGraph object, so restating
+  // the profile fields here is what keeps the image card and fixes og:url.
+  openGraph: {
+    type: "website",
+    title: `${SITE.name} — ${SITE.role}`,
+    description: SITE.description,
+    url: "/about",
+    siteName: SITE.name,
+  },
+  twitter: { card: "summary_large_image", site: X_PROFILE.handle, creator: X_PROFILE.handle },
 };
 
 const STATUS_LABEL: Record<string, string> = {
   live: "Live",
   building: "Building",
   private: "Private",
+  archived: "Archived",
 };
 
 function StatusBadge({ status }: { status?: string }) {

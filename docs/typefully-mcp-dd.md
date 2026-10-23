@@ -3,7 +3,7 @@
 > **Type:** research / DD (not an implementation plan)  
 > **Date:** 2026-07-10  
 > **Audience:** Howard + coding/writing agents on howard-site  
-> **Status of integration:** Grok user config has `typefully` HTTP MCP registered and smoke-tested (25 tools; analytics + schedule research done on `@0xHoward_Peng`).  
+> **Status of integration:** Grok user config has `typefully` HTTP MCP registered and smoke-tested (25 tools; analytics + schedule research done on the personal set, public X [@howard_pengg](https://x.com/howard_pengg)).  
 > **Related:** [writing-ops-mcp-bridge.md](./writing-ops-mcp-bridge.md)
 
 ---
@@ -73,10 +73,10 @@ Grouped for agents. Prefix in Grok: `typefully__…` (server name + tool).
 | Tool | Role |
 |------|------|
 | `typefully_get_me` | Who owns this API key |
-| `typefully_list_social_sets` | Accounts (e.g. `0xHoward_Peng`, product brands) |
+| `typefully_list_social_sets` | Accounts (e.g. personal `@howard_pengg`, product brands) |
 | `typefully_get_social_set_details` | Platforms linked to a set |
 
-Howard’s sets observed in testing: `0xHoward_Peng`, `howard_pen9_1`, `PredictMeme`, `makereel_xyz`, `MemePost_xyz`. **Primary for personal brand essays: `0xHoward_Peng` (id `188358`).**
+Howard’s sets observed in testing (2026-07-10): personal set id `188358`, `howard_pen9_1`, `PredictMeme`, `makereel_xyz`, `MemePost_xyz`. **Primary for personal brand essays: set id `188358`, public X [@howard_pengg](https://x.com/howard_pengg).** Confirm the live Typefully label with `list_social_sets` before posting — that smoke test recorded the personal set under an older name.
 
 ### 3.2 Draft lifecycle (write-heavy)
 
@@ -172,7 +172,7 @@ Typefully does **not** replace `/write-blog`. It assists the **compression & pac
 | **Follower trend** | `get_social_set_analytics_followers` | Lightweight health; not a north star alone |
 | **Post-mortem of a promo** | analytics for the published draft window | Did the thread move impressions / profile clicks / link clicks? |
 | **Queue rules** | get/put queue schedule | Institutionalize “Tue/Wed + weekend US morning” style rules |
-| **Multi-brand ops** | list social sets → post from product accounts | e.g. tool launch on `makereel_xyz` vs personal essay on `0xHoward_Peng` |
+| **Multi-brand ops** | list social sets → post from product accounts | e.g. tool launch on `makereel_xyz` vs personal essay on `@howard_pengg` (set id `188358`) |
 | **Tag taxonomy** | create/list tags | `blog-promo`, `reply-bait`, `product`, `zh-only` |
 
 ### 5.2 Ops Typefully **cannot** replace
@@ -205,7 +205,7 @@ Ops north star in existing docs (fyn operator-agent, x-watchlist content-ops) re
 
 **C. Multi-account**
 
-- Personal thesis → `0xHoward_Peng`.  
+- Personal thesis → `@howard_pengg` (Typefully set id `188358`).  
 - Product proof → product social set.  
 - Never cross-contaminate TON-legacy product spam into AI-builder personal lane (operator-agent amphibious rule).
 
@@ -235,7 +235,7 @@ If the task is “who do we talk to after it ships?” → fyn / x-watchlist.
 |------|------------|
 | **API key in chat / config.toml** | Rotate keys; prefer `Bearer ${TYPEFULLY_API_KEY}` or env expansion; never commit keys to howard-site git |
 | **Accidental publish** | Agent default: create **draft only**; schedule only when Howard explicitly confirms time |
-| **Wrong social set** | Always `list_social_sets` first; pin `0xHoward_Peng` = 188358 for personal essays |
+| **Wrong social set** | Always `list_social_sets` first; pin personal set id `188358` ([@howard_pengg](https://x.com/howard_pengg)) for personal essays |
 | **Legacy audience skew** | Analytics best-times may optimize for old TON/Telegram followers; weight **recent 30d** + ICP engagement, not raw 90d impressions alone |
 | **Scope creep of howard-site** | Site remains blog/product site; Typefully stays external SaaS — document here, don’t rebuild a scheduler in Next.js |
 | **Destructive tools** | `delete_draft`, delete comment/thread — require explicit user confirmation |
@@ -271,7 +271,7 @@ If the task is “who do we talk to after it ships?” → fyn / x-watchlist.
 ## 10. Appendix — Howard live smoke (2026-07-10)
 
 - MCP doctor: 25 tools, handshake OK.  
-- Primary set: `0xHoward_Peng` / id `188358`.  
+- Primary set id `188358` (public X @howard_pengg).  
 - Analytics sample: 300 posts / 90d; strongest personal windows leaned **weekend** and **TPE 08 / 15 / 19**; **Friday weakest**.  
 - Practical schedule used for *訊息能查,人查不了* promo research: **Sat 19:00 Asia/Taipei ≈ 07:00 America/New_York**.  
 - No dedicated best-time endpoint; method = aggregate `typefully_list_social_set_analytics_posts`.

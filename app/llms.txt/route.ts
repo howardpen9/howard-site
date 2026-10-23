@@ -36,7 +36,10 @@ export function GET() {
     ),
     "",
     "## Projects",
-    ...PROJECTS.map((p) => `- ${p.name}: ${p.tagline}${p.href ? ` (${p.href})` : ""}`),
+    ...PROJECTS.map((p) => {
+      const name = p.status === "archived" ? `${p.name} (archived)` : p.name;
+      return `- ${name}: ${p.tagline}${p.href ? ` (${p.href})` : ""}`;
+    }),
     "",
     "## Elsewhere",
     ...LINKS.map((l) => `- ${l.label}: ${l.href}`),

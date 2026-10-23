@@ -12,8 +12,15 @@ export const SITE = {
 
 export type Link = { label: string; href: string; handle?: string };
 
+export const X_PROFILE = {
+  label: "X",
+  href: "https://x.com/howard_pengg",
+  handle: "@howard_pengg",
+} as const;
+
 export const LINKS: Link[] = [
-  { label: "X", href: "https://x.com/howard_", handle: "@howard_" },
+  X_PROFILE,
+  { label: "Threads", href: "https://www.threads.com/@0xhoward_peng", handle: "@0xhoward_peng" },
   { label: "GitHub", href: "https://github.com/howardpen9", handle: "howardpen9" },
   { label: "Telegram", href: "https://t.me/telepeng", handle: "@telepeng" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/haoen-peng", handle: "haoen-peng" },
@@ -25,7 +32,7 @@ export type Project = {
   href?: string; // public site / product URL
   repo?: string; // public source, when open
   year: string;
-  status?: "live" | "building" | "private";
+  status?: "live" | "building" | "private" | "archived";
   // Screenshot for closed-source projects: drop a file at public/projects/<file>
   // and set image to "/projects/<file>". Rendered on featured cards when present.
   image?: string;
@@ -63,9 +70,8 @@ export const PROJECTS: Project[] = [
   {
     name: "talkBuffett",
     tagline: "Value-investing research platform — Buffett-grade analysis at 1/250,000th the cost.",
-    href: "https://talkbuffett-production.up.railway.app",
     year: "2026",
-    status: "live",
+    status: "archived",
     featured: true,
   },
   {
