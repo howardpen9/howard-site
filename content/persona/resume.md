@@ -25,7 +25,7 @@ Howard credibly fits four framings, depending on what the asker needs:
 - Owned developer experience and the acquisition→activation→expansion funnel for a 2M+ user L1 ecosystem; grew APAC developer engagement +40% by redesigning the zero-to-first-build activation flow.
 - Shipped official reference implementations (272★ combined) and authored "Mastering Toncoin", a 200+ page technical reference.
 
-**Technical Director / Partner — TON & TVM Ventures ($100M ecosystem fund)** (Oct 2024 – Sep 2025, Dubai)
+**Ex-Technical Director at a Telegram-ecosystem fund (TON Ventures → TVM Ventures)** (Oct 2024 – Sep 2025, Dubai)
 - Hands-on technical and product due diligence on early-stage infra/consumer/AI companies: reading codebases fast, judging engineering quality and product taste, delivering direct recommendations that shaped investment decisions.
 - Advised portfolio teams on scaling production systems and go-to-market.
 
