@@ -61,6 +61,8 @@ Per-essay detail (optional): top YAML in `<slug>.notes.md` — same fields as th
 
 | Date | Title | Stage | Progress | Theme | EN | notes | board |
 |------|-------|------:|----------|-------|----|-------|-------|
+| 2026-10-24 | Telegram is building an AI agent. It may not earn a cent from it. · [`telegram-agent-byok`](./telegram-agent-byok.en.mdx) | 6 live | `██████████` 100% | Distribution / rails | en-only² | — | — |
+| 2026-10-24 | Crypto doesn't have to win the consumer story. It has to be the pipe. · [`crypto-as-ai-rails`](./crypto-as-ai-rails.en.mdx) | 6 live | `██████████` 100% | Distribution / rails | en-only² | — | — |
 | 2026-07-10 | 訊息能查,人查不了 · [`harder-to-verify-a-person`](./harder-to-verify-a-person.mdx) | 6 live | `██████████` 100% | Verify / price / GEO | ✓ | ✓ | — |
 | 2026-06-30 | 在 xAI 工作的這些人,到底在意什麼? · [`what-xai-people-care-about`](./what-xai-people-care-about.mdx) | 6 live | `██████████` 100% | xAI / X data | ✓ | ✓ | — |
 | 2026-06-27 | DeepSeek 開源的不是模型,是商業屠殺 ft. DeepSpec · [`ai-four-layer-cake`](./ai-four-layer-cake.mdx) | 6 live | `██████████` 100% | Structure / capital | ✓ | ✓ | — |
@@ -69,6 +71,8 @@ Per-essay detail (optional): top YAML in `<slug>.notes.md` — same fields as th
 | 2026-05-22 | 他們的地板,是我們的天花板 · [`their-floor-was-our-ceiling`](./their-floor-was-our-ceiling.mdx) | 6 live | `██████████` 100% | Structure / capital | ✓ | — | — |
 
 ¹ Single file is EN-leaning; no separate `.en.mdx` twin.
+
+² English only: `posts/2026/<slug>.en.mdx` with `lang: "en"`. No Chinese twin.
 
 ## WIP / orphan
 
@@ -86,6 +90,7 @@ Per-essay detail (optional): top YAML in `<slug>.notes.md` — same fields as th
 | Verify / price / GEO | `harder-to-verify-a-person`, `priced-not-verified`, `agent-readable-websites` |
 | Structure / capital | `their-floor-was-our-ceiling`, `ai-four-layer-cake` |
 | Agent DX / cost | `you-dont-need-another-mcp-you-need-a-peer`, `ai-saas-as-rent`, `intent-burns-tokens` (wip) |
+| Distribution / rails | `telegram-agent-byok`, `crypto-as-ai-rails` |
 
 ---
 
@@ -93,7 +98,7 @@ Per-essay detail (optional): top YAML in `<slug>.notes.md` — same fields as th
 
 ```text
 <slug>.mdx           # primary body (usually zh; see agent-readable-websites exception)
-<slug>.en.mdx        # English twin
+<slug>.en.mdx        # English twin, or English-only when no Chinese file exists
 <slug>.notes.md      # writing notes + optional status YAML — not loaded by the site
 <slug>.board.html    # optional local spine board — not loaded by the site
 ```
