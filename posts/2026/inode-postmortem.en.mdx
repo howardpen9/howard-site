@@ -1,0 +1,63 @@
+---
+title: "Disk 35% full. Inodes 100% full."
+description: "On a shared machine you run out of files before you run out of GB."
+date: "2026-10-26"
+tags: ["agents", "linux", "ops"]
+draft: false
+source_url: "https://howard-peng.xyz/2026/inode-postmortem"
+captured_at: "2026-10-26"
+lang: "en"
+---
+
+`df -h` said my disk was fine. `df -i` said it was full. That afternoon I lost design files.
+
+I run about 30 bots and coding agents on one Linux box. On October 26, 2026, that machine ran out of inodes: 2,026,960 of 2,031,616 used. One hundred percent. New files could not be created. The error often still reads like "No space left on device," even when free gigabytes are sitting there.
+
+Original posts: [X (Chinese thread)](https://x.com/howard_peng7/status/2115303710972846386) · [Threads](https://www.threads.com/@0xhoward_peng/post/DfGeSl1kRTM) · [LinkedIn](https://www.linkedin.com/feed/update/urn:li:share:7521733452950355968)
+
+## Two limits, one misleading dashboard
+
+Disk space and inodes are separate ceilings.
+
+`df -h` counts space. `df -i` counts how many files and directories you can still create. On ext4 the inode count is fixed at format time. Every file takes one inode no matter how small. Hit either limit and writes fail.
+
+If you only watch space, agents will blindside you. They do not fill the disk with big blobs first. They fill it with millions of tiny files.
+
+## The cause was the agents
+
+Each coding agent works in its own git worktree. Each worktree gets its own `node_modules`. Anything that has been built also leaves a `.next` or `dist`.
+
+One project alone piled up about 1.15 million files.
+
+That is the pattern: more agents means more worktrees means more dependency trees means more inodes. On a shared machine you run out of files before you run out of GB. My disk was only about 35% used when inodes hit the wall.
+
+## Cleanup rule: only delete what can be rebuilt
+
+I did not wipe the machine. I used one rule.
+
+113 cache folders gone (`node_modules`, `.next`, `dist`). About 960,000 inodes came back from that step alone.
+
+31 worktrees removed, and only ones that were already merged, clean, and pushed. No `--force`.
+
+Zero branches deleted. Anything an agent was still using stayed untouched. Worktrees with unmerged work stayed too.
+
+After cleanup, inode use was 52%.
+
+## What I run now
+
+- Check `df -i` next to `df -h`, with an alert at 80%.
+- Clear caches right after every merge.
+- Keep open worktrees around 10.
+- Run `du --inodes` once a week to find what is eating files.
+- Agents list what they want to delete. A human approves before anything goes.
+- Anything that is not in git gets backed up to persistent storage.
+
+None of that is clever. It is the minimum once you accept that agent fleets are inode factories.
+
+## The lesson I care about
+
+People building with many agents will hit this. The dashboard that looks healthy (`df -h`) is the wrong one for this failure mode.
+
+More agents means more small files. On a shared box, file count fails first.
+
+Run `df -i` today.
