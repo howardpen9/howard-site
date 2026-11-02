@@ -14,7 +14,7 @@ export function Footer() {
   const article = isArticle(usePathname() ?? "");
 
   return (
-    <footer className="mt-24 border-t py-8 text-sm text-muted">
+    <footer className="mt-24 border-t border-border py-8 text-sm text-muted">
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
         {!article &&
           FOOTER_LABELS.flatMap((label) => {

@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/json-ld";
 import { LangToggle, type LangPane } from "@/components/lang-toggle";
 import { DraftEditor } from "@/components/draft-editor";
 import { ReadingMeta } from "@/components/reading-meta";
+import { LangSwitch } from "@/components/lang-switch";
 import { readingLabel } from "@/lib/reading";
 import { Toc } from "@/components/toc";
 import { SITE, X_PROFILE } from "@/lib/config";
@@ -104,17 +105,18 @@ export default async function PostPage({ params }: { params: Promise<Params> }) 
       <Link href="/" className="font-mono text-xs text-faint transition-colors hover:text-foreground">
         ← back
       </Link>
-      <div className="mt-6 mb-6 flex items-center gap-3 text-sm text-faint">
+      <div className="mt-6 mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-faint">
         {post.draft && (
           <span className="rounded border border-accent/40 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent">
             draft · local only
           </span>
         )}
-        <time dateTime={post.date} className="font-mono">{formatDate(post.date)}</time>
-        <a href={`/${year}/${slug}.md`} className="font-mono transition-colors hover:text-foreground">
+        <time dateTime={post.date}>{formatDate(post.date)}</time>
+        <ReadingMeta stats={readingStats} />
+        <LangSwitch />
+        <a href={`/${year}/${slug}.md`} className="transition-colors hover:text-foreground">
           [view as .md]
         </a>
-        <ReadingMeta stats={readingStats} />
       </div>
       <LangToggle panes={panes} />
       {post.tags && post.tags.length > 0 && (
