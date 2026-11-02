@@ -7,8 +7,8 @@ import { LINKS } from "@/lib/config";
 // carries its own tag footer, so we don't re-show the social links there.
 const isArticle = (pathname: string) => /^\/\d{4}\/[^/]+$/.test(pathname);
 
-// Short row: X, Threads, and GitHub. About lists every profile.
-const FOOTER_LABELS = ["X", "Threads", "GitHub"];
+// Short row on the homepage and other non-article pages. About lists every profile.
+const FOOTER_LABELS = ["X", "Threads", "GitHub", "LinkedIn"];
 
 export function Footer() {
   const article = isArticle(usePathname() ?? "");
