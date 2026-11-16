@@ -61,6 +61,8 @@ Per-essay detail (optional): top YAML in `<slug>.notes.md` — same fields as th
 
 | Date | Title | Stage | Progress | Theme | EN | notes | board |
 |------|-------|------:|----------|-------|----|-------|-------|
+| 2026-11-15 | I wouldn't just look at how much Anthropic is still losing. · [`anthropic-capital-efficiency`](./anthropic-capital-efficiency.en.mdx) | 6 live | `██████████` 100% | Structure / capital | only² | — | — |
+| 2026-11-10 | This feels like the moment the tech actually gets handed down. · [`minimax-h3-vast-comfy-first-run`](./minimax-h3-vast-comfy-first-run.en.mdx) | 6 live | `██████████` 100% | Open weights | only² | — | — |
 | 2026-11-08 | I read TON like a building. The floors are functions, not owners. · [`ton-ecosystem-floor-by-floor`](./ton-ecosystem-floor-by-floor.en.mdx) | 6 live | `██████████` 100% | TON / crypto | only² | — | — |
 | 2026-11-03 | In China the leaderboard is not the Western one. · [`questmobile-china-ai-mau-2026-06`](./questmobile-china-ai-mau-2026-06.en.mdx) | 6 live | `██████████` 100% | China / AI | only² | — | — |
 | 2026-11-01 | AI turns text from flat to 3D. Our systems are still flat. · [`ai-flat-to-3d-agents-redesign`](./ai-flat-to-3d-agents-redesign.en.mdx) | 6 live | `██████████` 100% | Agents / systems | only² | — | — |
@@ -90,11 +92,12 @@ Per-essay detail (optional): top YAML in `<slug>.notes.md` — same fields as th
 |---------|--------|
 | xAI / X data | `what-xai-people-care-about`, `xai-voice-is-ten-people`, `attention-vs-value`, `selling-behavior-data` |
 | Verify / price / GEO | `harder-to-verify-a-person`, `priced-not-verified`, `agent-readable-websites` |
-| Structure / capital | `their-floor-was-our-ceiling`, `ai-four-layer-cake` |
+| Structure / capital | `their-floor-was-our-ceiling`, `ai-four-layer-cake`, `anthropic-capital-efficiency` |
 | Agent DX / cost | `you-dont-need-another-mcp-you-need-a-peer`, `ai-saas-as-rent`, `intent-burns-tokens` (wip) |
 | Agents / systems | `ai-flat-to-3d-agents-redesign`, `inode-postmortem` |
 | TON / crypto | `ton-ecosystem-floor-by-floor` |
 | China / AI | `questmobile-china-ai-mau-2026-06` |
+| Open weights | `minimax-h3-vast-comfy-first-run` |
 
 ---
 
