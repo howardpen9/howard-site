@@ -12,14 +12,17 @@ export type LangPane = { code: string; label: string; node: React.ReactNode };
 export function LangToggle({ panes }: { panes: LangPane[] }) {
   const lang = useSiteLang();
 
-  if (panes.length <= 1) return <>{panes[0]?.node}</>;
+  if (panes.length <= 1) {
+    const only = panes[0];
+    return only ? <div lang={only.code}>{only.node}</div> : null;
+  }
 
   const active = panes.some((p) => p.code === lang) ? lang : panes[0].code;
 
   return (
     <>
       {panes.map((p) => (
-        <div key={p.code} className={active === p.code ? "" : "hidden"}>
+        <div key={p.code} lang={p.code} className={active === p.code ? "" : "hidden"}>
           {p.node}
         </div>
       ))}

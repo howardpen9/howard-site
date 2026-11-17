@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useSiteLang, setSiteLang } from "./lang-store";
 
 const OPTIONS = [
@@ -7,7 +8,16 @@ const OPTIONS = [
   ["zh", "中"],
 ] as const;
 
-/** Global language toggle for the header — drives the whole site. */
+const isArticle = (pathname: string) => /^\/\d{4}\/[^/]+$/.test(pathname);
+
+/** Header copy. On an article the same control sits in the reading meta row. */
+export function HeaderLangSwitch() {
+  const article = isArticle(usePathname() ?? "");
+  if (article) return null;
+  return <LangSwitch />;
+}
+
+/** Global language toggle — drives the whole site. */
 export function LangSwitch() {
   const lang = useSiteLang();
   return (

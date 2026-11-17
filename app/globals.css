@@ -60,10 +60,25 @@ a {
   text-decoration: none;
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-radius: 2px;
+/* In base so a utility radius (rounded-md on a post row) wins. inherit is the
+   fallback, replacing the old 2px that ignored the row's own corners. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ---- Prose (MDX article body) ---- */
@@ -73,6 +88,22 @@ a {
 }
 .prose > * + * {
   margin-top: 1.25rem;
+}
+/* Chinese body copy needs more air than the English 1.75 / 1.25rem rhythm.
+   Heading margins stay put; :lang(zh) is set on the article pane. */
+.prose:lang(zh) p,
+.prose:lang(zh) li,
+.prose:lang(zh) blockquote {
+  line-height: 1.85;
+}
+.prose:lang(zh) > * + * {
+  margin-top: 1.5rem;
+}
+.prose:lang(zh) > h2 {
+  margin-top: 2.5rem;
+}
+.prose:lang(zh) > h3 {
+  margin-top: 2rem;
 }
 .prose h2 {
   font-size: 1.4rem;
